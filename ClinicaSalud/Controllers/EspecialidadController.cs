@@ -17,11 +17,17 @@ namespace ClinicaSalud.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            List<Especialidad> especialidadList = _unitOfWork.Especialidad.GetAll().ToList();
-
-            return View(especialidadList);
+            return View();
         }
 
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            //trae todas los modelos incluyendo el eager loading del make, osea carga la informacion de la marca asociada
+            var modelList = _unitOfWork.Especialidad.GetAll();
+            //retorna la informacion en formato json
+            return Json(new { data = modelList });
+        }
 
     }
 }
