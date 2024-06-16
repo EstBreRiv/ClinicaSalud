@@ -1,20 +1,31 @@
 ﻿var dataTable;
 
 $(document).ready(function () {
-    alert("Hola")
     loadDataTable();
 });
 
 function loadDataTable() {
-    //busque un documento #tbldata y conviertalo en un datatable
     dataTable = $('#tblData').DataTable({
-        //utilice ajax para consumir una url que se encuentra en "/VehicleModel/getall"
+
         ajax: {
             "url": "/Especialidad/getall"
         },
-        //el match de las columnas indica como se ordenan los datos en sus respectivas columnas
         "columns": [
-            { "data": "nombre", "width": "30%" }
+            { "data": "nombre", "width": "30%" },
+            {
+                "data": "ID",
+                "render": function (data) {
+                    return `
+                            <a href="/VehicleModel/upsert/${data}" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+
+                            <a onClick=Delete(${data}) class="btn btn-danger mx-2">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                          `
+                }
+            }
             
         ]
     });

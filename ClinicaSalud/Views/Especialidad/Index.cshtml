@@ -1,15 +1,23 @@
 ﻿
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
 <div class="container">
+
+
 
     <div class="row pt-4">
 
         <div class="col-6">
+
+
             <h2 class="text-primary">
                 Liist of models
             </h2>
-            <div class="col-6 text-end">
-                <a asp-controller="VehicleModel" asp-action="Upsert" class="btn btn-primary"> <i class="bi bi-plus-circle"></i> Create new Model</a>
-            </div>
+           
+        </div>
+
+        <div class="col-6 text-end align-content-center">
+            <a asp-controller="VehicleModel" asp-action="Upsert" class="btn btn-primary "> <i class="bi bi-plus-circle"></i> Agregar Especialidad</a>
         </div>
     </div>
 
@@ -25,5 +33,5 @@
 
 </div>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
 <script src="~/js/Especialidad.js"></script>
