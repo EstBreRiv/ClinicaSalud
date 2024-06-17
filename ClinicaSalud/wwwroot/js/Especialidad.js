@@ -6,7 +6,6 @@ $(document).ready(function () {
 
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
-
         ajax: {
             "url": "/Especialidad/getall"
         },
@@ -27,7 +26,10 @@ function loadDataTable() {
                 }
             }
             
-        ]
+        ],
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+        }
     });
 }
 
@@ -64,3 +66,5 @@ function loadDataTable() {
         });
 
 }
+
+
