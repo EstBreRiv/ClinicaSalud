@@ -11,18 +11,16 @@
 
 
             <h2 class="text-primary">
-                Liist of models
+                Especialidaddes Medicas
             </h2>
            
         </div>
 
         <div class="col-6 text-end align-content-center">
-            <a asp-controller="VehicleModel" asp-action="Upsert" class="btn btn-primary "> <i class="bi bi-plus-circle"></i> Agregar Especialidad</a>
+            <a asp-controller="Especialidad" asp-action="Upsert" class="btn btn-primary "> <i class="bi bi-plus-circle"></i> Agregar Especialidad</a>
         </div>
     </div>
 
-@*     necesitamos consumir el api por lo que debemos recorrer la listade json
- *@
     <table id="tblData" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
