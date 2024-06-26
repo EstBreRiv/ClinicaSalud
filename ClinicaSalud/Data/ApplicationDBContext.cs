@@ -13,5 +13,8 @@ namespace ClinicaSalud.Data
         }
 
         public DbSet<Especialidad> Especialidad { get; set; }
+        public DbSet<Medico> Medico { get; set; }
+        public DbSet<Tratamiento> Tratamiento{ get; set; }
+        public DbSet<Medicamento> Medicamento{ get; set; }
     }
 }
