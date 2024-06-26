@@ -2,8 +2,9 @@
 using ClinicaSalud.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ClinicaSalud.Controllers
+namespace ClinicaSalud.Areas.Administracion.Controllers
 {
+    [Area("Administracion")]
     public class EspecialidadController : Controller
     {
 
@@ -82,9 +83,10 @@ namespace ClinicaSalud.Controllers
         {
             Especialidad modelo = _unitOfWork.Especialidad.Get(x => x.ID == id);
 
-             if (modelo == null){
+            if (modelo == null)
+            {
                 return Json(new { success = false, message = "Error al eliminar especialidad" });
-             }
+            }
 
             _unitOfWork.Especialidad.Remove(modelo);
             _unitOfWork.save();

@@ -7,7 +7,7 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         ajax: {
-            "url": "/Especialidad/getall"
+            "url": "/Administracion/Especialidad/getall"
         },
         "columns": [
             { "data": "nombre", "width": "30%" },
@@ -15,7 +15,7 @@ function loadDataTable() {
                 "data": "id",
                 "render": function (data) {
                     return `
-                            <a href="/Especialidad/Upsert/${data}" class="btn btn-primary mx-2">
+                            <a href="/Administracion/Especialidad/Upsert/${data}" class="btn btn-primary mx-2">
                                 <i class="bi bi-pencil-square"></i> Editar
                             </a>
 
@@ -47,7 +47,7 @@ function loadDataTable() {
 
                 //metodo que permite hacer el delete sin tener que hacer un httpget
                 $.ajax({
-                    url: "/Especialidad/delete/" + _id,
+                    url: "/Administracion/Especialidad/delete/" + _id,
                     type: 'DELETE',
                     success: function (data) {
                         if (data.success) {

@@ -2,8 +2,9 @@ using ClinicaSalud.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ClinicaSalud.Controllers
+namespace ClinicaSalud.Areas.Paciente.Controllers
 {
+    [Area("Paciente")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
