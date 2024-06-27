@@ -11,24 +11,24 @@
 
 
             <h2 class="text-primary">
-                Especialidades Medicas
+                Medicos
             </h2>
-           
+
         </div>
 
         <div class="col-6 text-end align-content-center">
-            <a asp-controller="Especialidad" asp-action="Upsert" class="btn btn-primary "> <i class="bi bi-plus-circle"></i> Agregar Especialidad</a>
+            <a asp-controller="Medico" asp-action="Upsert" class="btn btn-primary "> <i class="bi bi-plus-circle"></i> Agregar Medico</a>
         </div>
     </div>
 
     <table id="tblData" class="table table-bordered table-striped" style="width:100%">
         <thead>
-            <tr>
-                <th>Nombre</th>
-            </tr>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>NumeroColegiado</th>
         </thead>
     </table>
 
 </div>
 
-<script src="~/js/Especialidad.js"></script>
+<script src="~/js/medico.js"></script>

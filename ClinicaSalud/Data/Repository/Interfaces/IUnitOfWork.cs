@@ -3,6 +3,7 @@
     public interface IUnitOfWork
     {
         IEspecialidadRepository Especialidad { get; }
+        IMedicoRepository Medico { get; }
 
         void save();
     }

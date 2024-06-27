@@ -1,0 +1,20 @@
+﻿@model Medico
+
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">@Model.Nombre</h2>
+        </div>
+        <div class="row pl-1">
+            <p class="text-primary">Numero de colegiado: @Model.NumeroColegiado</p>
+        </div>
+        <div class="row pl-2">
+            <p class="text-primary">Especialidades:</p>
+        </div>
+        <div class="row pl-4">
+            <p class="text-primary">Picture: @Model.FotografiaUrl</p>
+        </div>
+    </div>
+
+    <a asp-area="Customer" asp-controller="Home" asp-action="Index" style="width:150px" class="btn btn-primary">Return to list</a>
+</div>
