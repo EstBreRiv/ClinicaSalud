@@ -1,5 +1,4 @@
-﻿
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 <div class="container">
 
@@ -11,13 +10,13 @@
 
 
             <h2 class="text-primary">
-                Especialidades Medicas
+                Tratamiento
             </h2>
-           
+
         </div>
 
         <div class="col-6 text-end align-content-center">
-            <a asp-controller="Especialidad" asp-action="Upsert" class="btn btn-primary "> <i class="bi bi-plus-circle"></i> Agregar Especialidad</a>
+            <a asp-controller="Tratamiento" asp-action="Upsert" class="btn btn-primary "> <i class="bi bi-plus-circle"></i> Agregar Tratamiento</a>
         </div>
     </div>
 
@@ -25,10 +24,11 @@
         <thead>
             <tr>
                 <th>Nombre</th>
+                <th>Descripcion</th>
             </tr>
         </thead>
     </table>
 
 </div>
 
-<script src="~/js/Especialidad.js"></script>
+<script src="~/js/Tratamiento.js"></script>

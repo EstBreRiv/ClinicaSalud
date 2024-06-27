@@ -1,0 +1,24 @@
+﻿@model Medicamento
+
+<form method="post">
+
+    <input hidden asp-for="ID" />
+
+    <div class="border-5">
+        <div class="row pb-4">
+            <h2 class="text-primary"> @(Model.ID == 0 ? "Agregar" : "Actualizar") Medicamento </h2>
+        </div>
+    </div>
+
+    <div class="border-4">
+        <div class="mb-3">
+            <label asp-for="Nombre" class="p-1"></label>
+            <input asp-for="Nombre" type="text" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" style="width:150px">Guardar</button>
+        <a asp-controller="Medicamento" asp-action="Index" style="width:150px" class="btn btn-secondary">Volver</a>
+    </div>
+</form>
