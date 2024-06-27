@@ -4,6 +4,10 @@
     {
         IEspecialidadRepository Especialidad { get; }
 
+        IMedicamentoRepository Medicamento { get; }
+
+        ITratamientoRepository Tratamiento { get; }
+
         void save();
     }
 }

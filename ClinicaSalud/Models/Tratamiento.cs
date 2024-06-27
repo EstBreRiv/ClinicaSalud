@@ -8,9 +8,9 @@ namespace ClinicaSalud.Models
         public int ID { get; set; }
 
         [Required]
-        public string nombre;
+        public string Nombre { get; set; }
 
         [Required]
-        public string descripcion;
+        public string Descripcion { get; set; }
     }
 }
