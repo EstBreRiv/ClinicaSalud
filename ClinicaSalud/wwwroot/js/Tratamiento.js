@@ -16,15 +16,23 @@ function loadDataTable() {
                 "data": "id",
                 "render": function (data) {
                     return `
-                            <a href="/Medicina/Tratamiento/Upsert/${data}" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil-square"></i> Editar
-                            </a>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="btn-group" role="group" aria-label="Acciones">
+                                <a href="/Medicina/Tratamiento/Upsert/${data}" class="btn btn-primary btn-sm mx-1">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </a>
 
-                            <a onClick=Delete(${data}) class="btn btn-danger mx-2">
-                                <i class="bi bi-trash"></i> Borrar
-                            </a>
-                          `
-                }
+                                <a onClick=Delete(${data}) class="btn btn-danger btn-sm mx-1">
+                                    <i class="bi bi-trash"></i> Borrar
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                },
+                "width": "50%",  // Ajusta el ancho para que los botones ocupen el 50% de la columna
+                "className": "text-center",
+                "orderable": false,  // Evita que esta columna sea ordenable
+                "title": "Acciones"  // Agrega el título "Acciones" al encabezado de la columna 
             }
 
         ],

@@ -10,32 +10,38 @@ function loadDataTable() {
             "url": "/Administracion/Medico/getall"
         },
         "columns": [
-            { "data": "nombre", "width": "30%" },
-            { "data": "apellidos", "width": "30%" },
-            { "data": "numeroColegiado", "width": "30%" },
+            { "data": "nombre", "width": "25%" },
+            { "data": "apellidos", "width": "25%" },
+            { "data": "numeroColegiado", "width": "25%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `
-                            <a href="/Administracion/Medico/Upsert/${data}" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil-square"></i> Editar
-                            </a>
-
-                            <a onClick=Delete(${data}) class="btn btn-danger mx-2">
-                                <i class="bi bi-trash"></i> Borrar
-                            </a>
-
-                            <a href="/Administracion/Medico/Details/${data}" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil-square"></i> Detalles
-                            </a>
-                          `
-                }
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="btn-group" role="group" aria-label="Acciones">
+                                <a href="/Administracion/Medico/Upsert/${data}" class="btn btn-primary btn-sm mx-1">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </a>
+                                <a onClick=Delete(${data}) class="btn btn-danger btn-sm mx-1">
+                                    <i class="bi bi-trash"></i> Borrar
+                                </a>
+                                <a href="/Administracion/Medico/Details/${data}" class="btn btn-info btn-sm mx-1">
+                                    <i class="bi bi-info-circle"></i> Detalles
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                },
+                "width": "25%",
+                "orderable": false, 
+                "title": "Acciones",
+                "className": "text-center"
             }
-
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
-        }
+        },
+        "responsive": true
     });
 }
 
