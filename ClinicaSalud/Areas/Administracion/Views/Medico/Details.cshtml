@@ -1,20 +1,29 @@
 ﻿@model Medico
 
-<div class="container">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">@Model.Nombre</h2>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2>@Model.Nombre @Model.Apellidos</h2>
         </div>
-        <div class="row pl-1">
-            <p class="text-primary">Numero de colegiado: @Model.NumeroColegiado</p>
+        <div class="card-body d-flex align-items-center">
+            <div class="col-md-8">
+                <h5><strong>Número de Colegiado:</strong> @Model.NumeroColegiado</h5>
+                <p><strong>Especialidades:</strong></p>
+            </div>
+            <div class="col-md-4 text-right">
+                @if (!string.IsNullOrEmpty(Model.FotografiaUrl))
+                {
+                    <img src="~/@Model.FotografiaUrl" class="img-fluid" alt="Fotografía del Médico" style="width: 100%; max-width: 300px; height: auto;" />
+                }
+            </div>
         </div>
-        <div class="row pl-2">
-            <p class="text-primary">Especialidades:</p>
-        </div>
-        <div class="row pl-4">
-            <p class="text-primary">Picture: @Model.FotografiaUrl</p>
+        <div class="card-footer text-center">
+            <a asp-area="Administracion" asp-controller="Medico" asp-action="Index" class="btn btn-primary">Volver a la lista</a>
         </div>
     </div>
-
-    <a asp-area="Customer" asp-controller="Home" asp-action="Index" style="width:150px" class="btn btn-primary">Return to list</a>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

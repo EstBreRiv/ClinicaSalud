@@ -1,4 +1,5 @@
-﻿using ClinicaSalud.Data.Repository.Interfaces;
+﻿using ClinicaSalud.Data.Repository;
+using ClinicaSalud.Data.Repository.Interfaces;
 using ClinicaSalud.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,9 +26,15 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
             return View();
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
-            return View();
+            Medico medico = _unitOfWork.Medico.Get(v => v.Id == id);
+            if (medico == null)
+            {
+                return NotFound();
+            }
+
+            return View(medico);
         }
 
         #region API
