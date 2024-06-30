@@ -9,6 +9,10 @@
 
         ITratamientoRepository Tratamiento { get; }
 
+        IPadecimientoRepository Padecimiento { get; }
+
+        IPacienteRepository Paciente { get; }
+
         void save();
     }
 }
