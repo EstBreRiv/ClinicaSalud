@@ -36,7 +36,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Especialidad");
+                    b.ToTable("Especialidad", (string)null);
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.Medicamento", b =>
@@ -53,7 +53,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Medicamento");
+                    b.ToTable("Medicamento", (string)null);
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.Medico", b =>
@@ -81,7 +81,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Medico");
+                    b.ToTable("Medico", (string)null);
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.Tratamiento", b =>
@@ -102,7 +102,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Tratamiento");
+                    b.ToTable("Tratamiento", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
