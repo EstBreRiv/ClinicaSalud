@@ -17,7 +17,19 @@ namespace ClinicaSalud.Data
         public DbSet<Tratamiento> Tratamiento{ get; set; }
         public DbSet<Medicamento> Medicamento{ get; set; }
         public DbSet<Padecimiento> Padecimiento{ get; set; }
+
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
         public DbSet<Paciente> Paciente { get; set; }
+
+        public DbSet<MedicoEspecialidad> MedicoEspecialidad { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<MedicoEspecialidad>()
+                .HasKey(me => new { me.MedicoID, me.especialidadID });
+        }
     }
 }

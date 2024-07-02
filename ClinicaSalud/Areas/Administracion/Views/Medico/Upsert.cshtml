@@ -1,42 +1,48 @@
-﻿@model Medico
+﻿@using ClinicaSalud.Models.ViewModels
+@model MedicoVM
 
 <form method="post" enctype="multipart/form-data">
 
-    <input hidden asp-for="Id">
-    <input hidden asp-for="FotografiaUrl">
+    <input hidden asp-for="@Model.medico.Id">
+    <input hidden asp-for="@Model.medico.Id">
 
     <div class="border-5">
         <div class="row pb-4">
-            <h2 class="text-primary">@(Model.Id == 0 ? "Agregar" : "Actualizar") Medico</h2>
+            <h2 class="text-primary">@(Model.medico.Id == 0 ? "Agregar" : "Actualizar") Medico</h2>
         </div>
     </div>
 
     <div class="border p-3 mt-4">
         <div class="mb-3">
-            <label asp-for="Nombre" class="p-0"></label>
-            <input asp-for="Nombre" type="text" class="form-control"></input>
-            <span asp-validation-for="Nombre" class="text-danger"></span>
+            <label asp-for="medico.Nombre" class="p-0"></label>
+            <input asp-for="medico.Nombre" type="text" class="form-control"></input>
+            <span asp-validation-for="medico.Nombre" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="Apellidos" class="p-0"></label>
-            <input asp-for="Apellidos" type="text" class="form-control"></input>
-            <span asp-validation-for="Apellidos" class="text-danger"></span>
+            <label asp-for="medico.Apellidos" class="p-0"></label>
+            <input asp-for="medico.Apellidos" type="text" class="form-control"></input>
+            <span asp-validation-for="medico.Apellidos" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="NumeroColegiado" class="p-0"></label>
-            <input asp-for="NumeroColegiado" type="text" class="form-control"></input>
-            <span asp-validation-for="NumeroColegiado" class="text-danger"></span>
+            <label asp-for="medico.NumeroColegiado" class="p-0"></label>
+            <input asp-for="medico.NumeroColegiado" type="text" class="form-control"></input>
+            <span asp-validation-for="medico.NumeroColegiado" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="FotografiaUrl" class="p-0"></label>
+            <label asp-for="medico.FotografiaUrl" class="p-0"></label>
             <input id="uploadBox" name="file" type="file" class="form-control">
-            <span asp-validation-for="FotografiaUrl" class="text-danger"></span>
+            <span asp-validation-for="medico.FotografiaUrl" class="text-danger"></span>
         </div>
-        
-        @*Se debe agregar lo de especialidades*@
+
+        <div class="mb-3">
+            <label asp-for="especialidades" class="p-0"></label>
+            <select asp-for="SelectedEspecialidades" asp-items="@Model.especialidades" class="form-control" multiple="multiple">
+                <option disabled selected> --- Selecciona Especialidad --- </option>
+            </select>
+        </div>
 
         <button type="submit" class="btn btn-primary" style="width:150px">Guardar</button>
         <a asp-controller="Medico" asp-action="Index" style="width:150px" class="btn btn-secondary">Volver</a>

@@ -1,4 +1,5 @@
 ﻿using ClinicaSalud.Data.Repository.Interfaces;
+using ClinicaSalud.Models;
 
 namespace ClinicaSalud.Data.Repository
 {
@@ -21,6 +22,8 @@ namespace ClinicaSalud.Data.Repository
             Padecimiento = new PadecimientoRepository(_db);
 
             Paciente = new PacienteRepository(_db);
+
+            MedicoEspecialidad = new MedicoEspecialidadRepository(_db); 
         }
 
         public IEspecialidadRepository Especialidad { get; private set; }
@@ -34,6 +37,8 @@ namespace ClinicaSalud.Data.Repository
         public IPadecimientoRepository Padecimiento { get; private set; }
 
         public IPacienteRepository Paciente { get; private set; }
+
+        public IMedicoEspecialidadRepository MedicoEspecialidad { get; private set; }
 
         public void save()
         {
