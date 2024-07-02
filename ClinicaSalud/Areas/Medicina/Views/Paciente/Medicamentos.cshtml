@@ -1,9 +1,11 @@
 ﻿
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
+@model Paciente
+
 <div class="container">
 
-    <input hidden  id="IdPaciente"/>
+    <input hidden asp-for="ID" id="IdPaciente"/>
 
     <div class="row pt-4">
 
@@ -11,13 +13,16 @@
 
 
             <h2 class="text-primary">
-                Medicamentos
+                Medicamentos de @Model.Nombre
             </h2>
+            <h3>
+                Cedula: @Model.Cedula
+            </h3>
 
         </div>
 
         <div class="col-6 text-end align-content-center">
-            <a asp-controller="Medicamento" asp-action="Upsert" class="btn btn-primary "> <i class="bi bi-plus-circle"></i> Agregar Medicamento</a>
+            <a asp-controller="Paciente" asp-action="AgregaMedicamento" class="btn btn-primary "> <i class="bi bi-plus-circle"></i> Agregar Medicamento</a>
         </div>
     </div>
 
@@ -31,4 +36,4 @@
 
 </div>
 
-<script src="~/js/Medicamento.js"></script>
+<script src="~/js/MedicamentosPaciente.js"></script>

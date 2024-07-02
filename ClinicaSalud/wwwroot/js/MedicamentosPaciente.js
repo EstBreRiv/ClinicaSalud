@@ -1,47 +1,41 @@
 ﻿var dataTable;
 
-$(document).ready(function () {
-    loadDataTable();
+let idPaciente;
 
+$(document).ready(function () {
     idPaciente = $('#IdPaciente').val();
+
+    loadDataTable();
 });
 
-let idPaciente;
 
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         ajax: {
-            "url": "/Medicina/Paciente/getall"
+            "url": "/Medicina/Paciente/getMedicamentos/" + idPaciente
         },
         "columns": [
-            { "data": "nombre", "width": "25%" },
-            { "data": "apellidos", "width": "25%" },
-            { "data": "cedula", "width": "25%" },
+            { "data": "nombre", "width": "50%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `
                         <div class="d-flex justify-content-center align-items-center">
                             <div class="btn-group" role="group" aria-label="Acciones">
-                                <a href="/Medicina/Paciente/Upsert/${data}" class="btn btn-primary btn-sm mx-1">
-                                    <i class="bi bi-pencil-square"></i> Editar
+                                <a href="/Medicina/Medicamento/Upsert/${data}" class="btn btn-info btn-sm mx-1">
+                                    <i class="bi bi-pencil-square"></i> Eliminar
                                 </a>
-                                <a onClick=Delete(${data}) class="btn btn-danger btn-sm mx-1">
-                                    <i class="bi bi-trash"></i> Borrar
-                                </a>
-                                <a href="/Medicina/Paciente/Medicamentos/${data}" class="btn btn-primary btn-sm mx-1">
-                                   <i class="bi bi-capsule"></i> Medicamentos
-                                </a>
-                                
+
                             </div>
                         </div>
                     `;
                 },
-                "width": "50%",
-                "orderable": false, 
-                "title": "Acciones",
-                "className": "text-center"
+                "width": "50%",  // Ajusta el ancho para que los botones ocupen el 50% de la columna
+                "className": "text-center",
+                "orderable": false,  // Evita que esta columna sea ordenable
+                "title": "Acciones"  // Agrega el título "Acciones" al encabezado de la columna
             }
+
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
@@ -64,7 +58,7 @@ function Delete(_id) {
 
             //metodo que permite hacer el delete sin tener que hacer un httpget
             $.ajax({
-                url: "/Medicina/Paciente/delete/" + _id,
+                url: "/Medicina/Medicamento/delete/" + _id,
                 type: 'DELETE',
                 success: function (data) {
                     if (data.success) {
@@ -83,3 +77,5 @@ function Delete(_id) {
     });
 
 }
+
+

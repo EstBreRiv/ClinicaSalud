@@ -134,11 +134,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
             model.Paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
 
-            model.MedicamentoList = _unitOfWork.Medicamento.GetAll().Select(i => new SelectListItem
-            {
-                Text = i.Nombre,
-                Value = i.ID.ToString()
-            });
+            //model.MedicamentoList = _unitOfWork.Medicamento.GetAll();
 
             return View(model);
         }
@@ -162,8 +158,15 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
 
         [HttpGet]
-        public IActionResult Medicametos() { 
-            return View();
+        public IActionResult Medicamentos(int? id) { 
+            var paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return View(paciente);
         }
 
 
