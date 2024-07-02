@@ -13,6 +13,8 @@
 
         IPacienteRepository Paciente { get; }
 
+        IMedicoEspecialidadRepository MedicoEspecialidad { get; }
+
         void save();
     }
 }

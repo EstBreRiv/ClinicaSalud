@@ -1,8 +1,10 @@
 ﻿using ClinicaSalud.Data.Repository;
 using ClinicaSalud.Data.Repository.Interfaces;
 using ClinicaSalud.Models;
+using ClinicaSalud.Models.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ClinicaSalud.Areas.Administracion.Controllers
 {
@@ -28,13 +30,32 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
 
         public IActionResult Details(int id)
         {
-            Medico medico = _unitOfWork.Medico.Get(v => v.Id == id);
-            if (medico == null)
+            //Medico medico = _unitOfWork.Medico.Get(v => v.Id == id);
+
+            MedicoVM model = new MedicoVM();
+
+            model.medico = _unitOfWork.Medico.Get(x => x.Id == id);
+            //model.ListaEspecialidades = _unitOfWork.MedicoEspecialidad;
+
+            var lista = _unitOfWork.MedicoEspecialidad.GetAll();
+
+            foreach (var item in lista)
+            {
+                if (item.MedicoID == id)
+                {
+                    //var especialidad = _unitOfWork.MedicoEspecialidad.Get(x => x.MedicoID == id);
+                    Especialidad varieble = _unitOfWork.Especialidad.Get(x => x.ID == item.especialidadID);
+                    model.ListaEspecialidades.Add(varieble);
+                }
+            }
+
+
+            if (model == null)
             {
                 return NotFound();
             }
 
-            return View(medico);
+            return View(model);
         }
 
         #region API
@@ -49,7 +70,16 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
         public IActionResult Upsert(int? id)
         {
 
-            Medico modelo = new Medico();
+            MedicoVM modelo = new()
+            {
+                medico = new Medico(),
+                especialidades = _unitOfWork.Especialidad.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Nombre,
+                    Value = i.ID.ToString()
+                }).ToList()
+            };
+        
 
             if (id == null || id <= 0)
             {
@@ -57,19 +87,22 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
             }
 
 
-            modelo = _unitOfWork.Medico.Get(x => x.Id == id);
+            modelo.medico = _unitOfWork.Medico.Get(m => m.Id == id);
 
             if (modelo == null)
             {
                 return NotFound();
             }
 
+
+
             return View(modelo);
 
         }
 
+
         [HttpPost]
-        public IActionResult Upsert(Medico _medico, IFormFile? file)
+        public IActionResult Upsert(MedicoVM _medico, IFormFile? file)
         {
 
             if (ModelState.IsValid)
@@ -82,9 +115,9 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
                     string extension = Path.GetExtension(file.FileName);
                     var uploads = Path.Combine(wwwRootPath, @"images\medicos");
 
-                    if (_medico.FotografiaUrl != null) //Update
+                    if (_medico.medico.FotografiaUrl != null) //Update
                     {
-                        var oldImageUrl = Path.Combine(wwwRootPath, _medico.FotografiaUrl);
+                        var oldImageUrl = Path.Combine(wwwRootPath, _medico.medico.FotografiaUrl);
 
                         if (System.IO.File.Exists(oldImageUrl))
                             System.IO.File.Delete(oldImageUrl);
@@ -95,15 +128,27 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
                         file.CopyTo(fileStream);
                     }
 
-                    _medico.FotografiaUrl = @"images\medicos\" + fileName + extension;
+                    _medico.medico.FotografiaUrl = @"images\medicos\" + fileName + extension;
 
                 }
 
-                if (_medico.Id == 0)
-                    _unitOfWork.Medico.Add(_medico);
+                if (_medico.medico.Id == 0)
+                    _unitOfWork.Medico.Add(_medico.medico);
                 else
-                    _unitOfWork.Medico.Update(_medico);
+                    _unitOfWork.Medico.Update(_medico.medico);
 
+                _unitOfWork.save();
+
+                foreach (var especialidad in _medico.SelectedEspecialidades) { 
+                    MedicoEspecialidad me = new MedicoEspecialidad
+                    {
+                        MedicoID = _medico.medico.Id,
+                        especialidadID = especialidad
+                    };
+
+                    _unitOfWork.MedicoEspecialidad.Add(me);
+                }
+               
                 _unitOfWork.save();
                 //agregar tempdata
             }

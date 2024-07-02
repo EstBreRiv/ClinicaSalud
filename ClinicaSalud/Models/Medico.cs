@@ -19,7 +19,7 @@ namespace ClinicaSalud.Models
         public string NumeroColegiado { get; set; }
 
         public string? FotografiaUrl { get; set; }
-        //public ICollection<EspecialidadMedico> EspecialidadesMedicas { get; set; }
+
     }
 
 }

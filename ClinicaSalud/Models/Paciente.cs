@@ -16,5 +16,7 @@ namespace ClinicaSalud.Models
         [Required]
         public int Cedula { get; set; }
 
+
+
     }
 }
