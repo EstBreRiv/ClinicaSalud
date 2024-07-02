@@ -4,6 +4,7 @@ using ClinicaSalud.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClinicaSalud.data.migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240702055738_agregarHistorialPaciente")]
+    partial class agregarHistorialPaciente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,21 +133,6 @@ namespace ClinicaSalud.data.migrations
                     b.HasKey("ID");
 
                     b.ToTable("Paciente");
-                });
-
-            modelBuilder.Entity("ClinicaSalud.Models.PacienteMedicamento", b =>
-                {
-                    b.Property<int>("PacienteID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MedicamentoID")
-                        .HasColumnType("int");
-
-                    b.HasKey("PacienteID", "MedicamentoID");
-
-                    b.HasIndex("MedicamentoID");
-
-                    b.ToTable("PacienteMedicamento");
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.Padecimiento", b =>
@@ -431,25 +419,6 @@ namespace ClinicaSalud.data.migrations
                     b.Navigation("Especialidad");
 
                     b.Navigation("Medico");
-                });
-
-            modelBuilder.Entity("ClinicaSalud.Models.PacienteMedicamento", b =>
-                {
-                    b.HasOne("ClinicaSalud.Models.Medicamento", "Medicamento")
-                        .WithMany()
-                        .HasForeignKey("MedicamentoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ClinicaSalud.Models.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Medicamento");
-
-                    b.Navigation("Paciente");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

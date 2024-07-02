@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClinicaSalud.Models
 {
@@ -16,7 +17,13 @@ namespace ClinicaSalud.Models
         [Required]
         public int Cedula { get; set; }
 
+        public string? PictureURL { get; set; }
 
+        [ValidateNever]
+        public string? DescripcionExamen { get; set; }
+
+        [ValidateNever]
+        public string? HistorialClinico { get; set; }
 
     }
 }

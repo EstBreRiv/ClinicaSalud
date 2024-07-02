@@ -24,12 +24,17 @@ namespace ClinicaSalud.Data
 
         public DbSet<MedicoEspecialidad> MedicoEspecialidad { get; set; }
 
+        public DbSet<PacienteMedicamento> PacienteMedicamento { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<MedicoEspecialidad>()
                 .HasKey(me => new { me.MedicoID, me.especialidadID });
+
+            modelBuilder.Entity<PacienteMedicamento>()
+                .HasKey(me => new { me.PacienteID, me.MedicamentoID });
         }
     }
 }

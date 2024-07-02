@@ -2,7 +2,13 @@
 
 $(document).ready(function () {
     loadDataTable();
+
+    idPaciente = document.getElementById("idPaciente").value;
+
+    idPaciente = $('#IdPaciente').val();
 });
+
+let idPaciente;
 
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
@@ -25,14 +31,15 @@ function loadDataTable() {
                                 <a onClick=Delete(${data}) class="btn btn-danger btn-sm mx-1">
                                     <i class="bi bi-trash"></i> Borrar
                                 </a>
-                                <a href="/Administracion/Medico/Details/${data}" class="btn btn-info btn-sm mx-1">
-                                    <i class="bi bi-info-circle"></i> Detalles
+                                <a href="/Medicina/Paciente/Medicamentos/${data}" class="btn btn-primary btn-sm mx-1">
+                                    <i class="bi bi-pencil-square"></i> Medicamentos
                                 </a>
+                                
                             </div>
                         </div>
                     `;
                 },
-                "width": "25%",
+                "width": "50%",
                 "orderable": false, 
                 "title": "Acciones",
                 "className": "text-center"
@@ -59,7 +66,7 @@ function Delete(_id) {
 
             //metodo que permite hacer el delete sin tener que hacer un httpget
             $.ajax({
-                url: "/Administracion/Paciente/delete/" + _id,
+                url: "/Medicina/Paciente/delete/" + _id,
                 type: 'DELETE',
                 success: function (data) {
                     if (data.success) {
