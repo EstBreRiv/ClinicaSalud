@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using ClinicaSalud.Data.Repository.Interfaces;
 using ClinicaSalud.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -33,6 +34,7 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUnitOfWork _unitOfWork;
 
         public RegisterModel(
             RoleManager<IdentityRole> roleManager,
@@ -40,7 +42,8 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -49,6 +52,7 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _roleManager = roleManager;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -165,6 +169,8 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
                 user.Apellidos = Input.Apellidos;
                 user.Cedula = (int)Input.Cedula;
 
+
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
 
@@ -176,6 +182,15 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
                     if (string.IsNullOrEmpty(Input.Role))
                     {                        
                         await _userManager.AddToRoleAsync(user, Utilities.ClinicaSaludRoles.Role_Paciente);
+
+                        Models.Paciente paciente = new Models.Paciente();
+                        paciente.Nombre = Input.Nombre;
+                        paciente.Apellidos = Input.Apellidos;
+                        paciente.Cedula = (int)Input.Cedula;
+
+                        _unitOfWork.Paciente.Add(paciente);
+
+                        _unitOfWork.save();
 
                     }
                     else {

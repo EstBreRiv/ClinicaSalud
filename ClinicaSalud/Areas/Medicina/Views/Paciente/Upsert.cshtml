@@ -1,36 +1,73 @@
-﻿
-@model Paciente
+﻿@using ClinicaSalud.Models.ViewModels
 
-<form method="post">
+@model PacienteVM
 
-    <input hidden asp-for="@Model.ID">
+<form method="post" enctype="multipart/form-data">
+
+    <input hidden asp-for="@Model.paciente.ID">
 
     <div class="border-5">
         <div class="row pb-4">
-            <h2 class="text-primary">@(Model.ID == 0 ? "Agregar" : "Actualizar") Paciente</h2>
+            <h2 class="text-primary">@(Model.paciente.ID == 0 ? "Agregar" : "Actualizar") Paciente</h2>
         </div>
     </div>
 
     <div class="border p-3 mt-4">
         <div class="mb-3">
-            <label asp-for="Nombre" class="p-0"></label>
-            <input asp-for="Nombre" type="text" class="form-control"></input>
-            <span asp-validation-for="Nombre" class="text-danger"></span>
+            <label asp-for="paciente.Nombre" class="p-0"></label>
+            <input asp-for="paciente.Nombre" type="text" class="form-control"></input>
+            <span asp-validation-for="paciente.Nombre" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="Apellidos" class="p-0"></label>
-            <input asp-for="Apellidos" type="text" class="form-control"></input>
-            <span asp-validation-for="Apellidos" class="text-danger"></span>
+            <label asp-for="paciente.Apellidos" class="p-0"></label>
+            <input asp-for="paciente.Apellidos" type="text" class="form-control"></input>
+            <span asp-validation-for="paciente.Apellidos" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label asp-for="Cedula" class="p-0"></label>
-            <input asp-for="Cedula" type="text" class="form-control"></input>
-            <span asp-validation-for="Cedula" class="text-danger"></span>
+            <label asp-for="paciente.Cedula" class="p-0"></label>
+            <input asp-for="paciente.Cedula" type="text" class="form-control"></input>
+            <span asp-validation-for="paciente.Cedula" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="paciente.PictureURL" class="p-0"></label>
+            <input id="uploadbox" name="file" type="file" class="form-control" />
+            <span asp-validation-for="paciente.PictureURL" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="paciente.DescripcionExamen" class="p-0"></label>
+            <input asp-for="paciente.DescripcionExamen" type="text" class="form-control"></input>
+            <span asp-validation-for="paciente.DescripcionExamen" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+
+            <label asp-for="paciente.HistorialClinico" class="p-0"></label>
+            <textarea asp-for="paciente.HistorialClinico" rows="3" type="text" class="form-control"><</textarea>
+            <span asp-validation-for="paciente.HistorialClinico" class="text-danger"></span>
         </div>
 
         <button type="submit" class="btn btn-primary" style="width:150px">Guardar</button>
         <a asp-controller="Paciente" asp-action="Index" style="width:150px" class="btn btn-secondary">Volver</a>
     </div>
 </form>
+
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/92vljdstlgwj16razkj6e06czxoevr6cgwwrpojsg0k8878t/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        });
+    </script>
+}

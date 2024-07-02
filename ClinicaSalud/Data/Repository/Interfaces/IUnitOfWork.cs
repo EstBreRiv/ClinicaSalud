@@ -15,6 +15,7 @@
 
         IMedicoEspecialidadRepository MedicoEspecialidad { get; }
 
+        IPacienteMedicamentoRepository PacienteMedicamento { get; }
         void save();
     }
 }
