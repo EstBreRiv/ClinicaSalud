@@ -64,7 +64,14 @@
 
                         </li>
                         
-
+                        <ul class="navbar-nav">
+                            @if (User.IsInRole(ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-area="Identity" asp-controller="Account" asp-action="Register">Agregar nuevo usuario</a>
+                                </li>
+                            }
+                        </ul>
 
                         
                        
