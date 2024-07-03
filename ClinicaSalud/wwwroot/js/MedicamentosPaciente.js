@@ -22,8 +22,12 @@ function loadDataTable() {
                     return `
                         <div class="d-flex justify-content-center align-items-center">
                             <div class="btn-group" role="group" aria-label="Acciones">
-                                <a href="/Medicina/Medicamento/Upsert/${data}" class="btn btn-danger btn-sm mx-1">
+                                <a href="/Medicina/Medicamento/suspenderMedicamento/${data}" class="btn btn-danger btn-sm mx-1">
                                    <i class="bi bi-slash-circle"></i> Suspender
+                                </a>
+
+                                <a onClick=suspenderMedicamento(${data}) class="btn btn-warning btn-sm mx-1">
+                                    <i class="bi bi-trash"></i> Borrar
                                 </a>
 
                             </div>
@@ -44,7 +48,7 @@ function loadDataTable() {
     });
 }
 
-function Delete(_id) {
+function suspenderMedicamento(_id) {
     Swal.fire({
         title: "¿Esta seguro de eliminar?",
         text: "No se podran recuperar los datos borrados",
@@ -58,19 +62,20 @@ function Delete(_id) {
 
             //metodo que permite hacer el delete sin tener que hacer un httpget
             $.ajax({
-                url: "/Medicina/Medicamento/delete/" + _id,
+                url: "/Medicina/Paciente/suspenderMedicamento/" + _id,
                 type: 'DELETE',
-                success: function (data) {
+                success: function (_id) {
                     if (data.success) {
                         dataTable.ajax.reload();
-                        alert("Eliminado");
+                        
                     }
                     else {
-                        alert("Error");
+                        //remplazar con toastr
+                        dataTable.ajax.reload();
                     }
                 },
                 error: function () {
-                    alert("Error");
+                    dataTable.ajax.reload();
                 }
             });
         }

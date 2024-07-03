@@ -1,4 +1,5 @@
 using ClinicaSalud.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,14 +9,18 @@ namespace ClinicaSalud.Areas.Paciente.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private UserManager<IdentityUser> _userManager;
+        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager)
         {
             _logger = logger;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
+            var usuario = _userManager.GetUserAsync(HttpContext.User);
+            var usuario2 = this.User;
+            var usuario3 = _userManager.GetUserId(usuario2);
             return View();
         }
 

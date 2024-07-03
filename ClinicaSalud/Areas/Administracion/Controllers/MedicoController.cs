@@ -132,6 +132,8 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
 
                 }
 
+                
+
                 if (_medico.medico.Id == 0)
                     _unitOfWork.Medico.Add(_medico.medico);
                 else
@@ -139,7 +141,21 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
 
                 _unitOfWork.save();
 
-                foreach (var especialidad in _medico.SelectedEspecialidades) { 
+                var listaEspecialidades = _unitOfWork.MedicoEspecialidad.GetAll();
+
+                foreach (var item in listaEspecialidades)
+                {
+                    if (item.MedicoID == _medico.medico.Id && _medico.SelectedEspecialidades.Contains(item.especialidadID))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+
+
+                foreach (var especialidad in _medico.SelectedEspecialidades) {
+
+                   
+
                     MedicoEspecialidad me = new MedicoEspecialidad
                     {
                         MedicoID = _medico.medico.Id,

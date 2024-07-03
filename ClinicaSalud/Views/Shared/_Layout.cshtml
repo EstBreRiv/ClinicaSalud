@@ -60,16 +60,14 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Medicina" asp-controller="Paciente" asp-action="Index">Pacientes</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                                </li>
+                                
                             </ul>
 
                         </li>
                         
                         <ul class="navbar-nav">
                             @if (User.IsInRole(ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin))
-                                            {
+                            {
                                 <li class="nav-item">
                                     <a class="nav-link text-light" asp-area="Identity" asp-controller="Account" asp-action="Register">Agregar nuevo usuario</a>
                                 </li>
