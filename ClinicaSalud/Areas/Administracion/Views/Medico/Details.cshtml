@@ -1,32 +1,33 @@
-﻿
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-
-<div class="container">
-
-    <div class="row pt-4">
-
-        <div class="col-6">
+﻿﻿@using ClinicaSalud.Models.ViewModels
+@model MedicoVM
 
 
-            <h2 class="text-primary">
-                Especialidades Medicas
-            </h2>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2>@Model.medico.Nombre @Model.medico.Apellidos</h2>
+        </div>
+        <div class="card-body d-flex align-items-center">
+            <div class="col-md-8">
+                <h5><strong>Número de Colegiado:</strong> @Model.medico.NumeroColegiado</h5>
+                <p><strong>Especialidades:</strong></p>
+                @foreach (var especialidad in Model.ListaEspecialidades)
+                {
+                    <h6>@especialidad.Nombre</h6>
+                }
+            </div>
+            <div class="col-md-4 text-right">
+                @if (!string.IsNullOrEmpty(Model.medico.FotografiaUrl))
+                {
+                    <img src="~/@Model.medico.FotografiaUrl" class="img-fluid" alt="Fotografía del Médico" style="width: 100%; max-width: 300px; height: auto;" />
+                }
+            </div>
 
         </div>
-
-        <div class="col-6 text-end align-content-center">
-            <a asp-controller="Especialidad" asp-action="Upsert" class="btn btn-primary "> <i class="bi bi-plus-circle"></i> Agregar Especialidad</a>
+        <div class="card-footer text-center">
+            <a asp-area="Administracion" asp-controller="Medico" asp-action="Index" class="btn btn-primary">Volver a la lista</a>
         </div>
     </div>
-
-    <table id="tblData" class="table table-bordered table-striped" style="width:100%">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-            </tr>
-        </thead>
-    </table>
-
 </div>
 
-<script src="~/js/Especialidad.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

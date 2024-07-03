@@ -13,6 +13,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
     {
         private IUnitOfWork _unitOfWork;
         private IWebHostEnvironment _webHostEnvironment;
+        private static int IdPacienteActual;
 
         #region Constructor
 
@@ -47,6 +48,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
         {
 
             PacienteVM modelo = new PacienteVM();
+            modelo.paciente = new Models.Paciente();
 
             if (id == null || id <= 0)
             {
@@ -204,6 +206,8 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
         {
             var paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
 
+            IdPacienteActual = paciente.ID;
+
             if (paciente == null)
             {
                 return NotFound();
@@ -216,6 +220,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
         [HttpGet]
         public IActionResult getMedicamentos(int? id)
         {
+            var IdActual = IdPacienteActual;
 
             var medicamentos = _unitOfWork.Medicamento.GetAll();
 
@@ -300,6 +305,9 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
         public IActionResult Tratamientos(int? id)
         {
             var paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
+
+            IdPacienteActual = paciente.ID;
+
 
             if (paciente == null)
             {
@@ -398,6 +406,9 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
         {
             var paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
 
+            IdPacienteActual = paciente.ID;
+
+
             if (paciente == null)
             {
                 return NotFound();
@@ -430,6 +441,65 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
             return Json(new { data = listaReturn });
 
+        }
+
+        public IActionResult suspenderMedicamento(int? id) { 
+            
+            var IdActual = IdPacienteActual;
+
+            PacienteMedicamento pacienteMedicamento = _unitOfWork.PacienteMedicamento.Get(x => x.PacienteID == IdActual && x.MedicamentoID == id);
+
+            if (pacienteMedicamento == null) { 
+                return NotFound();
+            }
+
+            _unitOfWork.PacienteMedicamento.Remove(pacienteMedicamento);
+
+            _unitOfWork.save();
+
+            return RedirectToAction("Index");
+        }
+
+
+
+        public IActionResult SuspenderTratamiento(int? id)
+        {
+
+            var IdActual = IdPacienteActual;
+
+            PacienteTratamiento pacienteTratamiento = _unitOfWork.PacienteTratamiento.Get(x => x.PacienteID == IdActual && x.TratamientoID == id);
+
+            if (pacienteTratamiento == null)
+            {
+                return NotFound();
+            }
+
+            _unitOfWork.PacienteTratamiento.Remove(pacienteTratamiento);
+
+            _unitOfWork.save();
+
+            return RedirectToAction("Index");
+        }
+
+
+
+        public IActionResult SuspenderPadecimiento(int? id)
+        {
+
+            var IdActual = IdPacienteActual;
+
+            PacientePadecimiento pacientePadecimiento = _unitOfWork.PacientePadecimiento.Get(x => x.PacienteID == IdActual && x.PadecimientoID == id);
+
+            if (pacientePadecimiento == null)
+            {
+                return NotFound();
+            }
+
+            _unitOfWork.PacientePadecimiento.Remove(pacientePadecimiento);
+
+            _unitOfWork.save();
+
+            return RedirectToAction("Index");
         }
     }
 }

@@ -26,6 +26,10 @@ function loadDataTable() {
                                    <i class="bi bi-slash-circle"></i> Suspender
                                 </a>
 
+                                 <a onClick=SuspenderPadecimiento(${data}) class="btn btn-warning btn-sm mx-1">
+                                    <i class="bi bi-trash"></i> Borrar
+                                </a>
+
                             </div>
                         </div>
                     `;
@@ -44,7 +48,7 @@ function loadDataTable() {
     });
 }
 
-function Delete(_id) {
+function SuspenderPadecimiento(_id) {
     Swal.fire({
         title: "¿Esta seguro de eliminar?",
         text: "No se podran recuperar los datos borrados",
@@ -58,19 +62,20 @@ function Delete(_id) {
 
             //metodo que permite hacer el delete sin tener que hacer un httpget
             $.ajax({
-                url: "/Medicina/Padecimiento/delete/" + _id,
+                url: "/Medicina/Paciente/SuspenderPadecimiento/" + _id,
                 type: 'DELETE',
-                success: function (data) {
+                success: function (_id) {
                     if (data.success) {
                         dataTable.ajax.reload();
-                        alert("Eliminado");
+                        
                     }
                     else {
-                        alert("Error");
+                        //remplazar con toastr
+                        dataTable.ajax.reload();
                     }
                 },
                 error: function () {
-                    alert("Error");
+                    dataTable.ajax.reload();
                 }
             });
         }
