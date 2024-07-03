@@ -1,6 +1,12 @@
 ﻿var dataTable;
 
+
+let idPaciente;
+
 $(document).ready(function () {
+    idPaciente = $('#IdPaciente').val();
+
+
     loadDataTable();
 });
 

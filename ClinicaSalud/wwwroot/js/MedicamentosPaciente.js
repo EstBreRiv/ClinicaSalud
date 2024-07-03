@@ -22,8 +22,8 @@ function loadDataTable() {
                     return `
                         <div class="d-flex justify-content-center align-items-center">
                             <div class="btn-group" role="group" aria-label="Acciones">
-                                <a href="/Medicina/Medicamento/Upsert/${data}" class="btn btn-info btn-sm mx-1">
-                                    <i class="bi bi-pencil-square"></i> Eliminar
+                                <a href="/Medicina/Medicamento/Upsert/${data}" class="btn btn-danger btn-sm mx-1">
+                                   <i class="bi bi-slash-circle"></i> Suspender
                                 </a>
 
                             </div>

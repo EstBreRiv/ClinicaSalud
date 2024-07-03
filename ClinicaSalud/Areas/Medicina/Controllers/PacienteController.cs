@@ -1,4 +1,5 @@
-﻿using ClinicaSalud.Data.Repository.Interfaces;
+﻿using ClinicaSalud.data.migrations;
+using ClinicaSalud.Data.Repository.Interfaces;
 using ClinicaSalud.Models;
 using ClinicaSalud.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -122,6 +123,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
         }
         #endregion
 
+
         [HttpGet]
         public IActionResult AgregarMedicamento(int? id)
         {
@@ -134,9 +136,49 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
             model.Paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
 
-            //model.MedicamentoList = _unitOfWork.Medicamento.GetAll();
+            var listaMedicamentos = _unitOfWork.Medicamento.GetAll();
+
+            var medicamentosPaciente = _unitOfWork.PacienteMedicamento.GetAll();
+
+            IEnumerable<SelectListItem> MedicamentoList = listaMedicamentos.Select(i => new SelectListItem
+            {
+                Text = i.Nombre,
+                Value = i.ID.ToString()
+            });
+
+            model.MedicamentoList = MedicamentoList;
 
             return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult AgregarMedicamento(PacienteMedicamentoVM _paciente)
+        {
+            var medicamentosPaciente = _unitOfWork.PacienteMedicamento.GetAll();
+
+
+
+            PacienteMedicamento pacienteMedicamento = new PacienteMedicamento
+            {
+                PacienteID = _paciente.Paciente.ID,
+                MedicamentoID = _paciente.MedicamentoID
+            };
+
+            foreach (var item in medicamentosPaciente)
+            {
+
+                if (item.MedicamentoID == pacienteMedicamento.MedicamentoID && item.PacienteID == pacienteMedicamento.PacienteID)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            _unitOfWork.PacienteMedicamento.Add(pacienteMedicamento);
+
+            _unitOfWork.save();
+
+            return RedirectToAction("Index");
         }
 
 
@@ -158,7 +200,8 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
 
         [HttpGet]
-        public IActionResult Medicamentos(int? id) { 
+        public IActionResult Medicamentos(int? id)
+        {
             var paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
 
             if (paciente == null)
@@ -184,7 +227,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
             foreach (var item in medicamentoPaciente)
             {
-                
+
                 if (item.PacienteID == id)
                 {
                     listaReturn.Add(item.Medicamento);

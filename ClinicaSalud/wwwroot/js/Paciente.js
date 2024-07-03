@@ -29,7 +29,7 @@ function loadDataTable() {
                                 <a onClick=Delete(${data}) class="btn btn-danger btn-sm mx-1">
                                     <i class="bi bi-trash"></i> Borrar
                                 </a>
-                                <a href="/Medicina/Paciente/Medicamentos/${data}" class="btn btn-primary btn-sm mx-1">
+                                <a href="/Medicina/Paciente/Medicamentos/${data}" class="btn btn-info btn-sm mx-1">
                                    <i class="bi bi-capsule"></i> Medicamentos
                                 </a>
                                 

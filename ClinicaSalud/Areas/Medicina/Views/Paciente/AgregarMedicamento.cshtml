@@ -1,0 +1,26 @@
+﻿@using ClinicaSalud.Models.ViewModels
+@model PacienteMedicamentoVM
+
+<form method="post">
+
+    <input hidden asp-for="Paciente.ID" />
+
+    <div class="border-5">
+        <div class="row pb-4">
+            <h2 class="text-primary"> Medicamentos </h2>
+        </div>
+    </div>
+
+    <div class="border-4">
+        <div class="mb-3">
+            <label asp-for="MedicamentoList" class="p-0"></label>
+            <select asp-for="MedicamentoID" asp-items="@Model.MedicamentoList" class="form-control" multiple="multiple">
+                <option disabled selected> --- Selecciona Especialidad --- </option>
+            </select>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" style="width:150px">Guardar</button>
+        <a asp-controller="Medicamento" asp-action="Index" style="width:150px" class="btn btn-secondary">Volver</a>
+    </div>
+</form>
