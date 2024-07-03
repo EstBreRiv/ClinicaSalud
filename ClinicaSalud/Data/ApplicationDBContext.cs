@@ -26,6 +26,10 @@ namespace ClinicaSalud.Data
 
         public DbSet<PacienteMedicamento> PacienteMedicamento { get; set; }
 
+        public DbSet<PacienteTratamiento> PacienteTratamiento { get; set; }
+
+        public DbSet<PacientePadecimiento> PacientePadecimiento { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -35,6 +39,12 @@ namespace ClinicaSalud.Data
 
             modelBuilder.Entity<PacienteMedicamento>()
                 .HasKey(me => new { me.PacienteID, me.MedicamentoID });
+
+            modelBuilder.Entity<PacienteTratamiento>()
+                .HasKey(me => new { me.PacienteID, me.TratamientoID });
+
+            modelBuilder.Entity<PacientePadecimiento>()
+                .HasKey(me => new { me.PacienteID, me.PadecimientoID });
         }
     }
 }

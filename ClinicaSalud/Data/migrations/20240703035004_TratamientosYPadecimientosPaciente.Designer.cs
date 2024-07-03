@@ -4,6 +4,7 @@ using ClinicaSalud.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClinicaSalud.data.migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240703035004_TratamientosYPadecimientosPaciente")]
+    partial class TratamientosYPadecimientosPaciente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Especialidad", (string)null);
+                    b.ToTable("Especialidad");
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.Medicamento", b =>
@@ -53,7 +56,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Medicamento", (string)null);
+                    b.ToTable("Medicamento");
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.Medico", b =>
@@ -81,7 +84,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Medico", (string)null);
+                    b.ToTable("Medico");
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.MedicoEspecialidad", b =>
@@ -96,7 +99,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasIndex("especialidadID");
 
-                    b.ToTable("MedicoEspecialidad", (string)null);
+                    b.ToTable("MedicoEspecialidad");
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.Paciente", b =>
@@ -129,7 +132,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Paciente", (string)null);
+                    b.ToTable("Paciente");
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.PacienteMedicamento", b =>
@@ -144,7 +147,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasIndex("MedicamentoID");
 
-                    b.ToTable("PacienteMedicamento", (string)null);
+                    b.ToTable("PacienteMedicamento");
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.PacientePadecimiento", b =>
@@ -159,7 +162,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasIndex("PadecimientoID");
 
-                    b.ToTable("PacientePadecimiento", (string)null);
+                    b.ToTable("PacientePadecimiento");
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.PacienteTratamiento", b =>
@@ -174,7 +177,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasIndex("TratamientoID");
 
-                    b.ToTable("PacienteTratamiento", (string)null);
+                    b.ToTable("PacienteTratamiento");
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.Padecimiento", b =>
@@ -195,7 +198,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Padecimiento", (string)null);
+                    b.ToTable("Padecimiento");
                 });
 
             modelBuilder.Entity("ClinicaSalud.Models.Tratamiento", b =>
@@ -216,7 +219,7 @@ namespace ClinicaSalud.data.migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Tratamiento", (string)null);
+                    b.ToTable("Tratamiento");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

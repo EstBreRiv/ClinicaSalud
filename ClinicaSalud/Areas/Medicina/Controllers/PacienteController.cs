@@ -189,7 +189,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
             if (modelo == null)
             {
-                return Json(new { success = false, message = "Error al eliminar medico" });
+                return Json(new { success = false, message = "Error al eliminar paciente" });
             }
 
             _unitOfWork.Paciente.Remove(modelo);
@@ -231,6 +231,200 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
                 if (item.PacienteID == id)
                 {
                     listaReturn.Add(item.Medicamento);
+                }
+            }
+
+            return Json(new { data = listaReturn });
+
+        }
+
+        //Tratamientos
+        [HttpGet]
+        public IActionResult AgregarTratamiento(int? id)
+        {
+            PacienteTratamientoVM model = new PacienteTratamientoVM();
+
+            model.Paciente = new Models.Paciente();
+
+            if (id == null || id <= 0)
+                return NotFound();
+
+            model.Paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
+
+            var listaTratamientos = _unitOfWork.Tratamiento.GetAll();
+
+            var tratamientosPaciente = _unitOfWork.PacienteTratamiento.GetAll();
+
+            IEnumerable<SelectListItem> TratamientoList = listaTratamientos.Select(i => new SelectListItem
+            {
+                Text = i.Nombre,
+                Value = i.ID.ToString()
+            });
+
+            model.TratamientoList = TratamientoList;
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult AgregarTratamiento(PacienteTratamientoVM _tratamiento)
+        {
+            var tratamientosPaciente = _unitOfWork.PacienteTratamiento.GetAll();
+
+
+
+            PacienteTratamiento pacienteTratamiento = new PacienteTratamiento
+            {
+                PacienteID = _tratamiento.Paciente.ID,
+                TratamientoID = _tratamiento.TratamientoID
+            };
+
+            foreach (var item in tratamientosPaciente)
+            {
+
+                if (item.TratamientoID == pacienteTratamiento.TratamientoID && item.PacienteID == pacienteTratamiento.PacienteID)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            _unitOfWork.PacienteTratamiento.Add(pacienteTratamiento);
+
+            _unitOfWork.save();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Tratamientos(int? id)
+        {
+            var paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return View(paciente);
+        }
+
+
+        [HttpGet]
+        public IActionResult getTratamientos(int? id)
+        {
+
+            var tratamientos = _unitOfWork.Tratamiento.GetAll();
+
+            var pacientes = _unitOfWork.Paciente.GetAll();
+
+            var tratamientoPaciente = _unitOfWork.PacienteTratamiento.GetAll();
+
+            var listaReturn = new List<Tratamiento>();
+
+            foreach (var item in tratamientoPaciente)
+            {
+
+                if (item.PacienteID == id)
+                {
+                    listaReturn.Add(item.Tratamiento);
+                }
+            }
+
+            return Json(new { data = listaReturn });
+
+        }
+
+        //Padecimientos
+        [HttpGet]
+        public IActionResult AgregarPadecimiento(int? id)
+        {
+            PacientePadecimientoVM model = new PacientePadecimientoVM();
+
+            model.Paciente = new Models.Paciente();
+
+            if (id == null || id <= 0)
+                return NotFound();
+
+            model.Paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
+
+            var listaPadecimientos = _unitOfWork.Padecimiento.GetAll();
+
+            var padecimientoPaciente = _unitOfWork.PacientePadecimiento.GetAll();
+
+            IEnumerable<SelectListItem> PadecimientoList = listaPadecimientos.Select(i => new SelectListItem
+            {
+                Text = i.Nombre,
+                Value = i.ID.ToString()
+            });
+
+            model.PadecimientoList = PadecimientoList;
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult AgregarPadecimiento(PacientePadecimientoVM _padecimiento)
+        {
+            var padecimientosPaciente = _unitOfWork.PacientePadecimiento.GetAll();
+
+
+
+            PacientePadecimiento pacientePadecimiento = new PacientePadecimiento
+            {
+                PacienteID = _padecimiento.Paciente.ID,
+                PadecimientoID = _padecimiento.PadecimientoID
+            };
+
+            foreach (var item in padecimientosPaciente)
+            {
+
+                if (item.PadecimientoID == pacientePadecimiento.PadecimientoID && item.PacienteID == pacientePadecimiento.PacienteID)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            _unitOfWork.PacientePadecimiento.Add(pacientePadecimiento);
+
+            _unitOfWork.save();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Padecimientos(int? id)
+        {
+            var paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return View(paciente);
+        }
+
+
+        [HttpGet]
+        public IActionResult getPadecimientos(int? id)
+        {
+
+            var padecimientos = _unitOfWork.Padecimiento.GetAll();
+
+            var pacientes = _unitOfWork.Paciente.GetAll();
+
+            var padecimientoPaciente = _unitOfWork.PacientePadecimiento.GetAll();
+
+            var listaReturn = new List<Padecimiento>();
+
+            foreach (var item in padecimientoPaciente)
+            {
+
+                if (item.PacienteID == id)
+                {
+                    listaReturn.Add(item.Padecimiento);
                 }
             }
 
