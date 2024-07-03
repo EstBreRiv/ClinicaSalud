@@ -23,7 +23,9 @@ namespace ClinicaSalud.Data.Repository
 
             Paciente = new PacienteRepository(_db);
 
-            MedicoEspecialidad = new MedicoEspecialidadRepository(_db); 
+            MedicoEspecialidad = new MedicoEspecialidadRepository(_db);
+
+            ApplicationUser = new ApplicationUserRepository(_db);
         }
 
         public IEspecialidadRepository Especialidad { get; private set; }
@@ -39,6 +41,8 @@ namespace ClinicaSalud.Data.Repository
         public IPacienteRepository Paciente { get; private set; }
 
         public IMedicoEspecialidadRepository MedicoEspecialidad { get; private set; }
+
+        public IApplicationUserRepository ApplicationUser { get; private set; }
 
         public void save()
         {

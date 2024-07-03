@@ -15,6 +15,8 @@
 
         IMedicoEspecialidadRepository MedicoEspecialidad { get; }
 
+        IApplicationUserRepository ApplicationUser { get; }
+
         void save();
     }
 }
