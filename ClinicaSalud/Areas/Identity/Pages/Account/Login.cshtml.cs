@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using ClinicaSalud.Data.Repository;
+using ClinicaSalud.Models;
+using ClinicaSalud.Data.Repository.Interfaces;
 
 namespace ClinicaSalud.Areas.Identity.Pages.Account
 {
@@ -21,11 +24,13 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IUnitOfWork _IunitOfWork;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger, IUnitOfWork IunitOfWork)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _IunitOfWork = IunitOfWork;
         }
 
         /// <summary>
@@ -109,6 +114,18 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                // Obtén el usuario basado en el email
+                ApplicationUser user = _IunitOfWork.ApplicationUser.Get(v => v.Email == Input.Email);
+
+                // Verifica si el usuario está bloqueado
+                if (user != null && user.IsBlocked)
+                {
+                    // Usuario bloqueado
+                    _logger.LogWarning("La cuenta del usuario está bloqueada.");
+                    // Invalida el inicio de sesión y retorna un mensaje adecuado
+                    ModelState.AddModelError(string.Empty, "La cuenta del usuario está bloqueada.");
+                    return Page();
+                }
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);

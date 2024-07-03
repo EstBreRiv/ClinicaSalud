@@ -118,6 +118,8 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
             public string? Nombre { get; set; }
 
             public string? Apellidos { get; set; }
+
+            public bool? IsBlocked { get; set; }
         }
 
         private void CreateRoles() {
@@ -168,6 +170,7 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
                 user.Nombre = Input.Nombre;
                 user.Apellidos = Input.Apellidos;
                 user.Cedula = (int)Input.Cedula;
+                user.IsBlocked = false;
 
 
 
