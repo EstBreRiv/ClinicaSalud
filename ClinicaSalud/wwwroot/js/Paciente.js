@@ -33,10 +33,10 @@ function loadDataTable() {
                                    <i class="bi bi-capsule"></i> Medicamentos
                                 </a>
                                 <a href="/Medicina/Paciente/Padecimientos/${data}" class="btn btn-info btn-sm mx-1">
-                                   <i class="bi bi-capsule"></i> Padecimientos
+                                   <i class="bi bi-heart-pulse"></i> Padecimientos
                                 </a>
                                 <a href="/Medicina/Paciente/Tratamientos/${data}" class="btn btn-info btn-sm mx-1">
-                                   <i class="bi bi-capsule"></i> Tratamientos
+                                   <i class="bi bi-prescription"></i> Tratamientos
                                 </a>
                             </div>
                         </div>
