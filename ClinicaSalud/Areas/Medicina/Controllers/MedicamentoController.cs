@@ -93,6 +93,9 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
             return Json(new { success = true, message = "Eliminado correctamente" });
         }
 
+
+        
+
         #endregion
     }
 }

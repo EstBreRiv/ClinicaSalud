@@ -15,6 +15,11 @@
 
         IMedicoEspecialidadRepository MedicoEspecialidad { get; }
 
+        IPacienteMedicamentoRepository PacienteMedicamento { get; }
+
+        IPacienteTratamientoRepository PacienteTratamiento { get; }
+
+        IPacientePadecimientoRepository PacientePadecimiento { get; }
         IApplicationUserRepository ApplicationUser { get; }
 
         void save();
