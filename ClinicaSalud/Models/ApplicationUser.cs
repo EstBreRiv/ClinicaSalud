@@ -14,6 +14,7 @@ namespace ClinicaSalud.Models
         [Required]
         public string Apellidos { get; set;}
 
-
+        [Required]
+        public bool IsBlocked { get; set; }
     }
 }

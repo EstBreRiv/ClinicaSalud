@@ -1,0 +1,28 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace ClinicaSalud.data.migrations
+{
+    /// <inheritdoc />
+    public partial class AddBolqueoUserModel : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn<bool>(
+                name: "IsBlocked",
+                table: "AspNetUsers",
+                type: "bit",
+                nullable: true);
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: "IsBlocked",
+                table: "AspNetUsers");
+        }
+    }
+}
