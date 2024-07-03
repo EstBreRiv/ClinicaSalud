@@ -18,6 +18,7 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
 
         #endregion
 
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -75,15 +76,39 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
             }
             return RedirectToAction("Index");
         }
-        public IActionResult ToggleBlock(int? cedula)
+
+        //[HttpGet]
+        //public IActionResult ToggleBlock(int _cedula)
+        //{
+        //    //_cedula = 208540135;
+        //    if (_cedula == 0)
+        //    {
+        //        return Json(new { success = false, message = "Cédula no proporcionada" });
+        //    }
+
+        //    var user = _unitOfWork.ApplicationUser.Get(x => x.Cedula == _cedula);
+        //    if (user == null)
+        //    {
+        //        return Json(new { success = false, message = "Usuario no encontrado" });
+        //    }
+
+        //    user.IsBlocked = !user.IsBlocked;
+        //    _unitOfWork.save();
+
+        //    return Json(new { success = true, message = "Estado de bloqueo cambiado correctamente" });
+        //}
+
+        [HttpGet]
+        public IActionResult ToggleBlock(int id)
         {
-            ApplicationUser user = _unitOfWork.ApplicationUser.Get(x => x.Cedula == cedula);
-            if (user != null)
+            ApplicationUser user = _unitOfWork.ApplicationUser.Get(v => v.Cedula == id);
+            if (user == null)
             {
-                user.IsBlocked = !user.IsBlocked;
-                _unitOfWork.save();
+                return NotFound();
             }
-            return RedirectToAction("Index");
+            user.IsBlocked = !user.IsBlocked;
+            _unitOfWork.save();
+            return View("Index");
         }
         #endregion
     }

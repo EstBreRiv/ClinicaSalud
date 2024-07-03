@@ -20,8 +20,8 @@ function loadDataTable() {
                     return `
                         <div class="d-flex justify-content-center align-items-center">
                             <div class="btn-group" role="group" aria-label="Acciones">
-                                <a href="/Administracion/ApplicationUser/Upsert/${data}" class="btn btn-primary btn-sm mx-1">
-                                    <i class="bi bi-pencil-square"></i> Editar
+                                <a href="/Administracion/ApplicationUser/ToggleBlock/${data}" class="btn btn-info btn-sm mx-1">
+                                    <i class="bi bi-info-circle"></i> Bloquear/Desbloquear
                                 </a>
                             </div>
                         </div>
@@ -40,9 +40,10 @@ function loadDataTable() {
     });
 }
 
-function ToggleBlock(_id) {
+function ToggleBlock(_cedula) {
+    console.log("Cedula: ", _cedula); // Verifica que el valor no sea nulo aquí
     Swal.fire({
-        title: "¿Esta seguro de bolquear o desbloquear?",
+        title: "¿Está seguro de bloquear o desbloquear?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -50,16 +51,13 @@ function ToggleBlock(_id) {
         confirmButtonText: "Bloquear/Desbloquear"
     }).then((result) => {
         if (result.isConfirmed) {
-
-            //metodo que permite hacer el delete sin tener que hacer un httpget
             $.ajax({
-                url: "/Administracion/ApplicationUser/ToggleBlock/" + _id,
+                url: "/Administracion/ApplicationUser/ToggleBlock/" + _cedula,
                 success: function (data) {
                     if (data.success) {
                         dataTable.ajax.reload();
                         alert("Bloqueado/Desbloqueado");
-                    }
-                    else {
+                    } else {
                         alert("ErrorSuccess");
                     }
                 },
@@ -69,5 +67,4 @@ function ToggleBlock(_id) {
             });
         }
     });
-
 }

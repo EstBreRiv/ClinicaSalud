@@ -437,9 +437,6 @@ namespace ClinicaSalud.data.migrations
                     b.Property<int>("Cedula")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsBlocked")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
