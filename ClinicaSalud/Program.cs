@@ -32,6 +32,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseCors("CorsPolicy");
 
 
 // Configure the HTTP request pipeline.
@@ -46,7 +47,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 
 
 app.UseAuthentication();

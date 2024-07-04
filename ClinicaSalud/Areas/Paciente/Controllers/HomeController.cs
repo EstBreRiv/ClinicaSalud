@@ -45,22 +45,12 @@ namespace ClinicaSalud.Areas.Paciente.Controllers
 
         public IActionResult Login()
         {
-            var aux = pacienteActual;
             return View();
         }
 
         [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Paciente )]
         public IActionResult MostrarMedicamentos(int? id)
         {
-
-            var MedicamentosGenerales = _unitOfWork.Medicamento.GetAll();
-
-            var MedicamentosPaciente = _unitOfWork.PacienteMedicamento.Get(x => x.PacienteID == id);
-
-            foreach (var item in MedicamentosGenerales)
-            {
-                //item.Nombre = item.Nombre + " " + item.Presentacion;
-            }
             Models.Paciente paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
 
             return View(paciente);
