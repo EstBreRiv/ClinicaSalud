@@ -23,7 +23,7 @@ namespace ClinicaSalud.Areas.Paciente.Controllers
 
         public IActionResult Index()
         {
-            //var usuario = _userManager.GetUserAsync(HttpContext.User);
+            
             var usuario2 = this.User;
 
             if (usuario2 != null)
@@ -38,8 +38,7 @@ namespace ClinicaSalud.Areas.Paciente.Controllers
             }
 
             Models.Paciente paciente = new Models.Paciente();
-            //var correoUsuario = _unitOfWork.Paciente.Get(x => x.);
-            //var usuario3 = _userManager.GetUserId(usuario2);
+            
             return View(paciente);
         }
 
