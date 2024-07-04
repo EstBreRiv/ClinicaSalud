@@ -22,9 +22,11 @@ namespace ClinicaSalud.Models
         public string? PictureURL { get; set; }
 
         [ValidateNever]
+        [DisplayName("Descripcion del examen")]
         public string? DescripcionExamen { get; set; }
 
         [ValidateNever]
+        [DisplayName("Historial clinico")]
         public string? HistorialClinico { get; set; }
 
     }
