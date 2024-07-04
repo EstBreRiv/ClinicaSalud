@@ -1,0 +1,50 @@
+﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+@model Paciente
+
+<div class="container">
+
+    <input hidden asp-for="ID" id="IdPaciente" />
+
+    <div class="row pt-4">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    @if (Model.Nombre != null)
+                    {
+                        <h2 class="card-title">Examen médico de @Model.Nombre</h2>
+                    }
+
+                    <table class="table table-bordered table-striped mt-4">
+                        <thead>
+                            <tr>
+                                <th>Descripción del examen:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Model.DescripcionExamen</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(Model.PictureURL))
+                                    {
+                                        <div>
+                                            <a href="@Url.Content($"~/{Model.PictureURL}")" target="_blank" class="btn btn-primary">Descargar archivo</a>
+                                        </div>
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <a asp-controller="Paciente" asp-action="Index" class="btn btn-primary">Volver</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

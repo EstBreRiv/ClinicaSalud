@@ -2,7 +2,6 @@
 
 $(document).ready(function () {
     loadDataTable();
-
     idPaciente = $('#IdPaciente').val();
 });
 
@@ -14,36 +13,39 @@ function loadDataTable() {
             "url": "/Medicina/Paciente/getall"
         },
         "columns": [
-            { "data": "nombre", "width": "20%" },
-            { "data": "apellidos", "width": "20%" },
-            { "data": "cedula", "width": "20%" },
+            { "data": "nombre", "width": "25%" },
+            { "data": "apellidos", "width": "25%" },
+            { "data": "cedula", "width": "25%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `
-                        <div class="d-flex justify-content-center align-items-center">
+                        <div class="d-flex justify-content-center align-items-center flex-wrap">
                             <div class="btn-group" role="group" aria-label="Acciones">
-                                <a href="/Medicina/Paciente/Upsert/${data}" class="btn btn-primary btn-sm mx-1">
+                                <a href="/Medicina/Paciente/Upsert/${data}" class="btn btn-primary btn-sm m-1 d-flex align-items-center justify-content-center" style="width: 120px;">
                                     <i class="bi bi-pencil-square"></i> Editar
                                 </a>
-                                <a onClick=Delete(${data}) class="btn btn-danger btn-sm mx-1">
+                                <a onClick=Delete(${data}) class="btn btn-danger btn-sm m-1 d-flex align-items-center justify-content-center" style="width: 120px;">
                                     <i class="bi bi-trash"></i> Borrar
                                 </a>
-                                <a href="/Medicina/Paciente/Medicamentos/${data}" class="btn btn-info btn-sm mx-1">
+                                <a href="/Medicina/Paciente/Medicamentos/${data}" class="btn btn-info btn-sm m-1 d-flex align-items-center justify-content-center" style="width: 160px;">
                                    <i class="bi bi-capsule"></i> Medicamentos
                                 </a>
-                                <a href="/Medicina/Paciente/Padecimientos/${data}" class="btn btn-info btn-sm mx-1">
+                                <a href="/Medicina/Paciente/Padecimientos/${data}" class="btn btn-info btn-sm m-1 d-flex align-items-center justify-content-center" style="width: 160px;">
                                    <i class="bi bi-heart-pulse"></i> Padecimientos
                                 </a>
-                                <a href="/Medicina/Paciente/Tratamientos/${data}" class="btn btn-info btn-sm mx-1">
+                                <a href="/Medicina/Paciente/Tratamientos/${data}" class="btn btn-info btn-sm m-1 d-flex align-items-center justify-content-center" style="width: 160px;">
                                    <i class="bi bi-prescription"></i> Tratamientos
+                                </a>
+                                <a href="/Medicina/Paciente/Examenes/${data}" class="btn btn-info btn-sm m-1 d-flex align-items-center justify-content-center" style="width: 180px;">
+                                   <i class="bi bi-file-earmark-medical"></i> Resultado de examen
                                 </a>
                             </div>
                         </div>
                     `;
                 },
                 "width": "60%",
-                "orderable": false, 
+                "orderable": false,
                 "title": "Acciones",
                 "className": "text-center"
             }
