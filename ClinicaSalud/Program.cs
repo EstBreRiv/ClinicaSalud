@@ -42,6 +42,10 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+
+app.UseRouting();
+
 app.UseCors("CorsPolicy");
 
 
@@ -54,9 +58,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
 
-app.UseRouting();
 
   
 app.UseAuthentication();
