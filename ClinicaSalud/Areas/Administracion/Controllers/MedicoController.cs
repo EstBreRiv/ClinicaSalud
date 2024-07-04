@@ -2,6 +2,7 @@
 using ClinicaSalud.Data.Repository.Interfaces;
 using ClinicaSalud.Models;
 using ClinicaSalud.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace ClinicaSalud.Areas.Administracion.Controllers
 {
     [Area("Administracion")]
+    [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin)]
+
     public class MedicoController : Controller
     {
         private IUnitOfWork _unitOfWork;

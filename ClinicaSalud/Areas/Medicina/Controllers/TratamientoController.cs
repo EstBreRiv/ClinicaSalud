@@ -1,10 +1,12 @@
 ﻿using ClinicaSalud.Data.Repository.Interfaces;
 using ClinicaSalud.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicaSalud.Areas.Medicina.Controllers
 {
     [Area("Medicina")]
+    [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
     public class TratamientoController : Controller
     {
         private IUnitOfWork _unitOfWork;

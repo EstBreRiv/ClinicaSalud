@@ -1,10 +1,13 @@
 ﻿using ClinicaSalud.Data.Repository.Interfaces;
 using ClinicaSalud.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicaSalud.Areas.Administracion.Controllers
 {
     [Area("Administracion")]
+    [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin)]
+
     public class ApplicationUserController : Controller
     {
         private IUnitOfWork _unitOfWork;
@@ -76,27 +79,6 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        //[HttpGet]
-        //public IActionResult ToggleBlock(int _cedula)
-        //{
-        //    //_cedula = 208540135;
-        //    if (_cedula == 0)
-        //    {
-        //        return Json(new { success = false, message = "Cédula no proporcionada" });
-        //    }
-
-        //    var user = _unitOfWork.ApplicationUser.Get(x => x.Cedula == _cedula);
-        //    if (user == null)
-        //    {
-        //        return Json(new { success = false, message = "Usuario no encontrado" });
-        //    }
-
-        //    user.IsBlocked = !user.IsBlocked;
-        //    _unitOfWork.save();
-
-        //    return Json(new { success = true, message = "Estado de bloqueo cambiado correctamente" });
-        //}
 
         [HttpGet]
         public IActionResult ToggleBlock(int id)

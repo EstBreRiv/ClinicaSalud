@@ -2,13 +2,16 @@
 using ClinicaSalud.Data.Repository.Interfaces;
 using ClinicaSalud.Models;
 using ClinicaSalud.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 
 namespace ClinicaSalud.Areas.Medicina.Controllers
 {
     [Area("Medicina")]
+    [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Paciente)]
     public class PacienteController : Controller
     {
         private IUnitOfWork _unitOfWork;
@@ -78,7 +81,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
                 {
                     string fileName = Guid.NewGuid().ToString(); //Para generar un string aleatorio muy poco probable de repetirse 
                     string extension = Path.GetExtension(file.FileName).ToLower(); // Convertir a minúsculas para asegurar la comparación
-                    
+
                     var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".pdf" }; // Extensiones permitidas
                     if (!allowedExtensions.Contains(extension))
                     {
@@ -140,7 +143,9 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
         #endregion
 
 
+        #region Medicamentos
         [HttpGet]
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
         public IActionResult AgregarMedicamento(int? id)
         {
             PacienteMedicamentoVM model = new PacienteMedicamentoVM();
@@ -169,6 +174,8 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
+
         public IActionResult AgregarMedicamento(PacienteMedicamentoVM _paciente)
         {
             var medicamentosPaciente = _unitOfWork.PacienteMedicamento.GetAll();
@@ -199,6 +206,8 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
 
         [HttpDelete]
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
+
         public IActionResult Delete(int? id)
         {
             Models.Paciente modelo = _unitOfWork.Paciente.Get(x => x.ID == id);
@@ -216,6 +225,8 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
+
         public IActionResult Medicamentos(int? id)
         {
             var paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
@@ -257,8 +268,56 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
         }
 
-        //Tratamientos
+
+
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
+        public IActionResult suspenderMedicamento(int? id)
+        {
+
+            var IdActual = IdPacienteActual;
+
+            PacienteMedicamento pacienteMedicamento = _unitOfWork.PacienteMedicamento.Get(x => x.PacienteID == IdActual && x.MedicamentoID == id);
+
+            if (pacienteMedicamento == null)
+            {
+                return NotFound();
+            }
+
+            _unitOfWork.PacienteMedicamento.Remove(pacienteMedicamento);
+
+            _unitOfWork.save();
+
+            return RedirectToAction("Index");
+        }
+        #endregion
+
+        #region Tratamientos
+
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
+        public IActionResult SuspenderTratamiento(int? id)
+        {
+
+            var IdActual = IdPacienteActual;
+
+            PacienteTratamiento pacienteTratamiento = _unitOfWork.PacienteTratamiento.Get(x => x.PacienteID == IdActual && x.TratamientoID == id);
+
+            if (pacienteTratamiento == null)
+            {
+                return NotFound();
+            }
+
+            _unitOfWork.PacienteTratamiento.Remove(pacienteTratamiento);
+
+            _unitOfWork.save();
+
+            return RedirectToAction("Index");
+        }
+
+        
+
         [HttpGet]
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
+
         public IActionResult AgregarTratamiento(int? id)
         {
             PacienteTratamientoVM model = new PacienteTratamientoVM();
@@ -287,6 +346,8 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
+
         public IActionResult AgregarTratamiento(PacienteTratamientoVM _tratamiento)
         {
             var tratamientosPaciente = _unitOfWork.PacienteTratamiento.GetAll();
@@ -316,6 +377,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
         public IActionResult Tratamientos(int? id)
         {
             var paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
@@ -357,8 +419,12 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
         }
 
-        //Padecimientos
+        #endregion
+
+        #region Padecimientos
         [HttpGet]
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
+
         public IActionResult AgregarPadecimiento(int? id)
         {
             PacientePadecimientoVM model = new PacientePadecimientoVM();
@@ -387,6 +453,8 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
+
         public IActionResult AgregarPadecimiento(PacientePadecimientoVM _padecimiento)
         {
             var padecimientosPaciente = _unitOfWork.PacientePadecimiento.GetAll();
@@ -416,6 +484,8 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
+
         public IActionResult Padecimientos(int? id)
         {
             var paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
@@ -457,45 +527,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
         }
 
-        public IActionResult suspenderMedicamento(int? id) { 
-            
-            var IdActual = IdPacienteActual;
-
-            PacienteMedicamento pacienteMedicamento = _unitOfWork.PacienteMedicamento.Get(x => x.PacienteID == IdActual && x.MedicamentoID == id);
-
-            if (pacienteMedicamento == null) { 
-                return NotFound();
-            }
-
-            _unitOfWork.PacienteMedicamento.Remove(pacienteMedicamento);
-
-            _unitOfWork.save();
-
-            return RedirectToAction("Index");
-        }
-
-
-
-        public IActionResult SuspenderTratamiento(int? id)
-        {
-
-            var IdActual = IdPacienteActual;
-
-            PacienteTratamiento pacienteTratamiento = _unitOfWork.PacienteTratamiento.Get(x => x.PacienteID == IdActual && x.TratamientoID == id);
-
-            if (pacienteTratamiento == null)
-            {
-                return NotFound();
-            }
-
-            _unitOfWork.PacienteTratamiento.Remove(pacienteTratamiento);
-
-            _unitOfWork.save();
-
-            return RedirectToAction("Index");
-        }
-
-
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
 
         public IActionResult SuspenderPadecimiento(int? id)
         {
@@ -515,5 +547,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
             return RedirectToAction("Index");
         }
+
+        #endregion
     }
 }

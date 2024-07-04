@@ -8,6 +8,8 @@ using System.Diagnostics;
 namespace ClinicaSalud.Areas.Paciente.Controllers
 {
     [Area("Paciente")]
+    [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Paciente)]
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
