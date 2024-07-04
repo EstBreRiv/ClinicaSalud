@@ -1,20 +1,28 @@
-﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
+﻿@using ClinicaSalud.Models.ViewModels
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-@model Paciente
+@model PacienteVM
 
 <div class="container mt-5">
-    <input hidden asp-for="ID" id="IdPaciente" />
+    <input hidden asp-for="paciente.ID" id="IdPaciente" />
 
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title text-center">Datos Personales</h2>
-                    @if (Model.Nombre != null)
+                    @if (Model.paciente.Nombre != null)
                     {
-                        <p class="card-text"><strong>Nombre:</strong> @Model.Nombre</p>
-                        <p class="card-text"><strong>Apellidos:</strong> @Model.Apellidos</p>
-                        <p class="card-text"><strong>Cédula:</strong> @Model.Cedula</p>
+                        <p class="card-text"><strong>Nombre:</strong> @Model.paciente.Nombre</p>
+                        <p class="card-text"><strong>Apellidos:</strong> @Model.paciente.Apellidos</p>
+                        <p class="card-text"><strong>Cédula:</strong> @Model.paciente.Cedula</p>
+                        <p class="card-text"><strong>Correo Electronico:</strong> @Model.usuario.Email</p>
+                        <div class="mb-3">
+
+                            <label asp-for="paciente.HistorialClinico" class="p-0"></label>
+                            <textarea asp-for="paciente.HistorialClinico" rows="3" class="form-control" readonly></textarea>
+                            <span asp-validation-for="paciente.HistorialClinico" class="text-danger"></span>
+                        </div>
                     }
                 </div>
             </div>
@@ -24,3 +32,17 @@
         </div>
     </div>
 </div>
+
+
+
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/92vljdstlgwj16razkj6e06czxoevr6cgwwrpojsg0k8878t/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            readonly: 1, // establece el modo de solo lectura
+            menubar: false,
+            toolbar: false
+        });
+    </script>
+}

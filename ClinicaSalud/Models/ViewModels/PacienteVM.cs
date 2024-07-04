@@ -6,5 +6,8 @@ namespace ClinicaSalud.Models.ViewModels
     {
         [ValidateNever]
         public Paciente paciente { get; set; }
+
+        [ValidateNever]
+        public ApplicationUser usuario { get; set; }
     }
 }

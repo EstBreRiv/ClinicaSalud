@@ -1,5 +1,6 @@
 using ClinicaSalud.Data.Repository.Interfaces;
 using ClinicaSalud.Models;
+using ClinicaSalud.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -84,7 +85,11 @@ namespace ClinicaSalud.Areas.Paciente.Controllers
         [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Paciente)]
         public IActionResult MostrarDatosPersonales(int? id)
         {
-            Models.Paciente paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
+            PacienteVM paciente = new PacienteVM();
+
+            paciente.paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
+
+            paciente.usuario = _unitOfWork.ApplicationUser.Get(x => x.Cedula == paciente.paciente.Cedula);
 
             return View(paciente);
         }
