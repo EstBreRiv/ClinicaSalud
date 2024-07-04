@@ -57,10 +57,24 @@
                         @if (User.IsInRole(ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin))
                         {
                             <div class="form-floating mb-3">
-                                <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
+                                <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select" id="roleSelect">
                                     <option disabled selected>--- Seleccionar Rol ---</option>
                                 </select>
                                 <label asp-for="Input.Role">Rol</label>
+                            </div>
+
+                            <!-- Campos adicionales para el rol de Médico -->
+                            <div id="medicoFields" style="display: none;">
+                                <div class="mb-3">
+                                    <label asp-for="Input.FotografiaURL" class="p-0"></label>
+                                    <input id="uploadBox" name="file" type="file" class="form-control">
+                                    <span asp-validation-for="Input.FotografiaURL" class="text-danger"></span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Input.NumeroColegiado" class="form-control" type="number" aria-required="true" placeholder="Número Colegiado" />
+                                    <label asp-for="Input.NumeroColegiado">Número Colegiado</label>
+                                    <span asp-validation-for="Input.NumeroColegiado" class="text-danger"></span>
+                                </div>
                             </div>
                         }
 
@@ -73,6 +87,16 @@
 
     @section Scripts {
         <partial name="_ValidationScriptsPartial" />
+        <script>
+            document.getElementById('roleSelect').addEventListener('change', function () {
+                var medicoFields = document.getElementById('medicoFields');
+                if (this.value === 'Medico') { // Ajusta el valor según el rol que tienes en tu sistema
+                    medicoFields.style.display = 'block';
+                } else {
+                    medicoFields.style.display = 'none';
+                }
+            });
+        </script>
     }
 </body>
 </html>

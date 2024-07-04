@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ClinicaSalud.Data.Repository.Interfaces;
 using ClinicaSalud.Models;
+using ClinicaSalud.Models.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -113,13 +114,20 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
 
+            [Required]
             public int? Cedula { get; set; }
 
+            [Required]
             public string? Nombre { get; set; }
 
+            [Required]
             public string? Apellidos { get; set; }
 
             public bool? IsBlocked { get; set; }
+
+            public string? FotografiaURL { get; set; }
+
+            public string? NumeroColegiado { get; set; }
         }
 
         private void CreateRoles() {
@@ -187,9 +195,9 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
                         await _userManager.AddToRoleAsync(user, Utilities.ClinicaSaludRoles.Role_Paciente);
 
                         Models.Paciente paciente = new Models.Paciente();
-                        paciente.Nombre = Input.Nombre;
-                        paciente.Apellidos = Input.Apellidos;
-                        paciente.Cedula = (int)Input.Cedula;
+                        paciente.Nombre = user.Nombre;
+                        paciente.Apellidos = user.Apellidos;
+                        paciente.Cedula = user.Cedula;
 
                         _unitOfWork.Paciente.Add(paciente);
 
@@ -199,6 +207,30 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
                     else {
 
                         await _userManager.AddToRoleAsync(user, Input.Role);
+
+                        if (Input.Role == Utilities.ClinicaSaludRoles.Role_Paciente)
+                        {
+                            Models.Paciente paciente = new Models.Paciente()
+                            {
+                                Cedula = user.Cedula,
+                                Nombre = user.Nombre,
+                                Apellidos = user.Apellidos
+                            };
+                            _unitOfWork.Paciente.Add(paciente);
+                            _unitOfWork.save();
+                        }
+                        else if (Input.Role == Utilities.ClinicaSaludRoles.Role_Medico)
+                        {
+                            Medico medico = new Medico
+                            {
+                                Nombre = Input.Nombre,
+                                Apellidos = Input.Apellidos,
+                                FotografiaUrl = Input.FotografiaURL,
+                                NumeroColegiado = Input.NumeroColegiado
+                            };
+                            _unitOfWork.Medico.Add(medico);
+                            _unitOfWork.save();
+                        }
 
                     }
 
