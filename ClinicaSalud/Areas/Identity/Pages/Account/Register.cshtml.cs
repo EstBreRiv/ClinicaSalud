@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ClinicaSalud.Data.Repository.Interfaces;
 using ClinicaSalud.Models;
+using ClinicaSalud.Models.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -113,13 +114,20 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
 
+            [Required]
             public int? Cedula { get; set; }
 
+            [Required]
             public string? Nombre { get; set; }
 
+            [Required]
             public string? Apellidos { get; set; }
 
             public bool? IsBlocked { get; set; }
+
+            public string? FotografiaURL { get; set; }
+
+            public string? NumeroColegiado { get; set; }
         }
 
         private void CreateRoles() {
@@ -217,8 +225,11 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
                             {
                                 Nombre = Input.Nombre,
                                 Apellidos = Input.Apellidos,
+                                FotografiaUrl = Input.FotografiaURL,
+                                NumeroColegiado = Input.NumeroColegiado
                             };
-
+                            _unitOfWork.Medico.Add(medico);
+                            _unitOfWork.save();
                         }
 
                     }

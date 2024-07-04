@@ -18,6 +18,7 @@ namespace ClinicaSalud.Models
         [DisplayName("Numero de colegiado")]
         public string NumeroColegiado { get; set; }
 
+        [DisplayName("Link de fotografia")]
         public string? FotografiaUrl { get; set; }
 
     }
