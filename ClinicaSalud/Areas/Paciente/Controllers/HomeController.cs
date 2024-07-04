@@ -55,6 +55,30 @@ namespace ClinicaSalud.Areas.Paciente.Controllers
             return View(paciente);
         }
 
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Paciente)]
+        public IActionResult MostrarPadecimientos(int? id)
+        {
+            Models.Paciente paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
+
+            return View(paciente);
+        }
+
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Paciente)]
+        public IActionResult MostrarTratamientos(int? id)
+        {
+            Models.Paciente paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
+
+            return View(paciente);
+        }
+
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Paciente)]
+        public IActionResult MostrarResultadoExamen(int? id)
+        {
+            Models.Paciente paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
+
+            return View(paciente);
+        }
+
         public IActionResult Privacy()
         {
 
@@ -66,5 +90,6 @@ namespace ClinicaSalud.Areas.Paciente.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

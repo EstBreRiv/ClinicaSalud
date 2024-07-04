@@ -20,8 +20,8 @@ function loadDataTable() {
                     return `
                         <div class="d-flex justify-content-center align-items-center">
                             <div class="btn-group" role="group" aria-label="Acciones">
-                                <a href="/Administracion/ApplicationUser/ToggleBlock/${data}" class="btn btn-info btn-sm mx-1">
-                                    <i class="bi bi-info-circle"></i> Bloquear/Desbloquear
+                                <a href="/Administracion/ApplicationUser/ToggleBlock/${data}" class="btn btn-danger btn-sm mx-1">
+                                    <i class="bi bi-lock-fill"></i> Bloquear/Desbloquear
                                 </a>
                             </div>
                         </div>

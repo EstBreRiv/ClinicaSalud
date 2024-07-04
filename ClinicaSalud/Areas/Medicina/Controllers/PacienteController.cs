@@ -77,8 +77,22 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
                 if (file != null)
                 {
                     string fileName = Guid.NewGuid().ToString(); //Para generar un string aleatorio muy poco probable de repetirse 
-                    string extension = Path.GetExtension(file.FileName);
+                    string extension = Path.GetExtension(file.FileName).ToLower(); // Convertir a minúsculas para asegurar la comparación
+                    
+                    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".pdf" }; // Extensiones permitidas
+                    if (!allowedExtensions.Contains(extension))
+                    {
+                        TempData["error"] = "File format not supported. Only .jpg, .jpeg, .png, .gif, .pdf are allowed.";
+                        return View(_paciente);
+                    }
+
                     var uploads = Path.Combine(wwwRootPath, @"images\resultados");
+
+                    // Verificar y crear la carpeta si no existe
+                    if (!Directory.Exists(uploads))
+                    {
+                        Directory.CreateDirectory(uploads);
+                    }
 
                     if (_paciente.paciente.PictureURL != null) //Update
                     {
