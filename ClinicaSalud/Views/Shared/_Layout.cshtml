@@ -45,23 +45,25 @@
                             <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Medicina
                             </a>
+                            @if (User.IsInRole(ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin))
+                            {
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Medicina" asp-controller="Medicamento" asp-action="Index">Medicamento</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Medicina" asp-controller="Tratamiento" asp-action="Index">Tratamiento</a>
+                                    </li>
 
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Medicina" asp-controller="Medicamento" asp-action="Index">Medicamento</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Medicina" asp-controller="Tratamiento" asp-action="Index">Tratamiento</a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Medicina" asp-controller="Padecimiento" asp-action="Index">Padecimiento</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Medicina" asp-controller="Paciente" asp-action="Index">Pacientes</a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Medicina" asp-controller="Padecimiento" asp-action="Index">Padecimiento</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Medicina" asp-controller="Paciente" asp-action="Index">Pacientes</a>
-                                </li>
-                                
-                            </ul>
+                                </ul>
+                            }
 
                         </li>
                         

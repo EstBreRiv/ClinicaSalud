@@ -2,6 +2,8 @@
     ViewData["Title"] = "Inicio";
 }
 
+@model Paciente
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,10 +15,13 @@
 <body>
 
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Bienvenido, Nombre</h1>
+        @if (Model.Nombre != null)
+        {
+            <h1 class="text-center mb-4">Bienvenido, @Model.Nombre</h1>
+        }
 
         <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+            <a href="/Paciente/Home/MostrarMedicamentos/@Model.ID" class="list-group-item list-group-item-action d-flex align-items-center">
                 <i class="bi bi-person-circle me-3" style="font-size: 1.5rem; color: purple;"></i>
                 <span>Datos personales</span>
             </a>
@@ -28,7 +33,7 @@
                 <i class="bi bi-heart-pulse me-3" style="font-size: 1.5rem; color: red;"></i>
                 <span>Padecimientos</span>
             </a>
-            <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+            <a href="/Paciente/Home/MostrarMedicamentos/@Model.ID" class="list-group-item list-group-item-action d-flex align-items-center">
                 <i class="bi bi-capsule me-3" style="font-size: 1.5rem; color: orange;"></i>
                 <span>Medicamentos</span>
             </a>
