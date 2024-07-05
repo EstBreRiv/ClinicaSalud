@@ -168,11 +168,11 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
                 }
                
                 _unitOfWork.save();
-                //agregar tempdata
+                TempData["success"] = "Medico creado correctamente";
             }
             else
             {
-                //tempdata error
+                TempData["error"] = "Error al crear medico";
             }
             return RedirectToAction("Index");
         }

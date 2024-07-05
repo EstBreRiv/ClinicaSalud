@@ -63,11 +63,10 @@ function suspenderMedicamento(_id) {
                 success: function (_id) {
                     if (data.success) {
                         dataTable.ajax.reload();
-                        
+                        toastr.success(data.message);
                     }
                     else {
-                        //remplazar con toastr
-                        dataTable.ajax.reload();
+                        toastr.error(data.message);
                     }
                 },
                 error: function () {

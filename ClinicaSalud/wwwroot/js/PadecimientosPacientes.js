@@ -64,10 +64,10 @@ function SuspenderPadecimiento(_id) {
                 success: function (_id) {
                     if (data.success) {
                         dataTable.ajax.reload();
-                        
+                        toastr.success(data.message);
                     }
                     else {
-                        //remplazar con toastr
+                        toastr.error(data.message);
                         dataTable.ajax.reload();
                     }
                 },

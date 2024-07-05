@@ -69,11 +69,11 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
                     _unitOfWork.Tratamiento.Update(_tratamiento);
 
                 _unitOfWork.save();
-                //agregar tempdata
+                TempData["success"] = "Tratamiento creado correctamente";
             }
             else
             {
-                //tempdata error
+                TempData["error"] = "Error al crear tratamiento";
             }
             return RedirectToAction("Index");
         }
