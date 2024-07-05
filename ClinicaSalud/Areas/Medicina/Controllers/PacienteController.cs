@@ -566,5 +566,22 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
             return View(paciente);
         }
+
+        [HttpGet]
+        [Authorize(Roles = ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Admin + "," + ClinicaSalud.Utilities.ClinicaSaludRoles.Role_Medico)]
+
+        public IActionResult HistorialClinico(int? id)
+        {
+            var paciente = _unitOfWork.Paciente.Get(x => x.ID == id);
+
+            IdPacienteActual = paciente.ID;
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return View(paciente);
+        }
     }
 }

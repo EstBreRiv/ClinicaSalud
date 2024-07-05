@@ -1,0 +1,26 @@
+﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+@model Paciente
+
+<div class="container mt-5">
+    <input hidden asp-for="ID" id="IdPaciente" />
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center text-primary">Historial Clínico de @Model.Nombre</h2>
+                    @if (Model.Nombre != null)
+                    {
+                        <div class="border p-3 mt-3">
+                            <p class="mb-0" style="white-space: pre-wrap;">@Html.Raw(@Model.HistorialClinico)</p>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a asp-controller="Paciente" asp-action="Index" class="btn btn-primary" style="width: 150px;">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>

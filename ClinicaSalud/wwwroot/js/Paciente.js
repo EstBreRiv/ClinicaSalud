@@ -40,6 +40,9 @@ function loadDataTable() {
                                 <a href="/Medicina/Paciente/Examenes/${data}" class="btn btn-info btn-sm m-1 d-flex align-items-center justify-content-center" style="width: 180px;">
                                    <i class="bi bi-file-earmark-medical"></i> Resultado de examen
                                 </a>
+                                <a href="/Medicina/Paciente/HistorialClinico/${data}" class="btn btn-info btn-sm m-1 d-flex align-items-center justify-content-center" style="width: 180px;">
+                                   <i class="bi bi-clipboard2-pulse-fill"></i> Historial Clinico
+                                </a>
                             </div>
                         </div>
                     `;
