@@ -69,7 +69,8 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
                     _unitOfWork.Medicamento.Update(_medicamento);
 
                 _unitOfWork.save();
-                //agregar tempdata
+
+                TempData["success"] = "Se Agrego el medicamento correctamente";
             }
             else
             {
