@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ClinicaSalud.Utilities;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
@@ -46,7 +49,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseCors("CorsPolicy");
+
 
 
 // Configure the HTTP request pipeline.
@@ -57,10 +60,16 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// Configurar el middleware HTTP
+if (app.Environment.IsDevelopment()) {
+    app.UseSwagger(); app.UseSwaggerUI(c => { 
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
+}
+
 app.UseHttpsRedirection();
 
-
-  
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
