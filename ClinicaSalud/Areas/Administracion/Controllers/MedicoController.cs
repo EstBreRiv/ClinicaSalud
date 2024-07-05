@@ -98,7 +98,6 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
             }
 
 
-
             return View(modelo);
 
         }
@@ -117,7 +116,7 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
                     string fileName = Guid.NewGuid().ToString(); //Para generar un string aleatorio muy poco probable de repetirse 
                     string extension = Path.GetExtension(file.FileName);
                     var uploads = Path.Combine(wwwRootPath, @"images\medicos");
-
+                    
                     if (_medico.medico.FotografiaUrl != null) //Update
                     {
                         var oldImageUrl = Path.Combine(wwwRootPath, _medico.medico.FotografiaUrl);
