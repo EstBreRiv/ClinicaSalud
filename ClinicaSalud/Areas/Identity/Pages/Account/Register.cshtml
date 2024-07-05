@@ -65,11 +65,7 @@
 
                             <!-- Campos adicionales para el rol de Médico -->
                             <div id="medicoFields" style="display: none;">
-                                <div class="mb-3">
-                                    <label asp-for="Input.FotografiaURL" class="p-0"></label>
-                                    <input id="uploadBox" name="file" type="file" class="form-control">
-                                    <span asp-validation-for="Input.FotografiaURL" class="text-danger"></span>
-                                </div>
+                               
                                 <div class="form-floating mb-3">
                                     <input asp-for="Input.NumeroColegiado" class="form-control" type="number" aria-required="true" placeholder="Número Colegiado" />
                                     <label asp-for="Input.NumeroColegiado">Número Colegiado</label>

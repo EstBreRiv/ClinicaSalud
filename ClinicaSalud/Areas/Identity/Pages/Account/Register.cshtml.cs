@@ -221,6 +221,10 @@ namespace ClinicaSalud.Areas.Identity.Pages.Account
                         }
                         else if (Input.Role == Utilities.ClinicaSaludRoles.Role_Medico)
                         {
+                            if (Input.NumeroColegiado == null) {
+                                ModelState.AddModelError("NumeroColegiado", "El numero de colegiado es requerido para los medicos");
+                                return Page();
+                            }
                             Medico medico = new Medico
                             {
                                 Nombre = Input.Nombre,
