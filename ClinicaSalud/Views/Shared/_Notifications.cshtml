@@ -1,12 +1,8 @@
-﻿@* se importa el link de js y de css desde el toastr
- *@
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+﻿@* Partial view son vistas compartidas*@
 
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"></link>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
-
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
 
 @if (TempData["success"] != null)
 {
@@ -36,14 +32,14 @@
 @if (TempData["error"] != null)
 {
     <script type="text/javascript">
-        Command: toastr["error"]("@TempData["error"]"")
+        Command: toastr["success"]("@TempData["error"])
 
                 toastr.options = {
                 "closeButton": false,
                 "debug": false,
                 "newestOnTop": false,
                 "progressBar": false,
-                "positionClass": "toast-top-right",
+                "positionClass": "toast-bottom-full-width",
                 "preventDuplicates": false,
                 "onclick": null,
                 "showDuration": "300",

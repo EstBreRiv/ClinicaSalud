@@ -64,9 +64,10 @@ function SuspenderTratamiento(_id) {
                 success: function (data) {
                     if (data.success) {
                         dataTable.ajax.reload();
+                        toastr.success(data.message);
                     }
                     else {
-                        //remplazar con toastr
+                        toastr.error(data.message);
                         dataTable.ajax.reload();
                     }
                 },

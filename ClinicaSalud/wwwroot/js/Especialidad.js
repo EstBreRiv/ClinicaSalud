@@ -60,10 +60,10 @@ function loadDataTable() {
                     success: function (data) {
                         if (data.success) {
                             dataTable.ajax.reload();
-                            alert("Eliminado");
+                            toastr.success(data.message);
                         }
                         else {
-                            alert("Error");
+                            toastr.error(data.message);
                         }
                     },
                     error: function () {

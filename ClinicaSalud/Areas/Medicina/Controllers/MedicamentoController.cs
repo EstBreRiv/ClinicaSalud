@@ -70,11 +70,11 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
 
                 _unitOfWork.save();
 
-                TempData["success"] = "Se Agrego el medicamento correctamente";
+                TempData["success"] = "Medicamento creado correctamente";
             }
             else
             {
-                //tempdata error
+                TempData["error"] = "Error al crear medicamento";
             }
             return RedirectToAction("Index");
         }

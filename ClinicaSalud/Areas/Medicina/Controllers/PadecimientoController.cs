@@ -69,11 +69,11 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
                     _unitOfWork.Padecimiento.Update(_padecimiento);
 
                 _unitOfWork.save();
-                //agregar tempdata
+                TempData["success"] = "Padecimiento creado correctamente";
             }
             else
             {
-                //tempdata error
+                TempData["error"] = "Error al crear padecimiento";
             }
             return RedirectToAction("Index");
         }

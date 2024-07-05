@@ -71,11 +71,11 @@ namespace ClinicaSalud.Areas.Administracion.Controllers
                     _unitOfWork.Especialidad.Update(_especialidad);
 
                 _unitOfWork.save();
-                //agregar tempdata
+                TempData["success"] = "Especialidad creada correctamente";
             }
             else
             {
-                //tempdata error
+                TempData["error"] = "Error al crear especialidad";
             }
             return RedirectToAction("Index");
         }

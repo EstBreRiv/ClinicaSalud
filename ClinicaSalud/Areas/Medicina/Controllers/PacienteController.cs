@@ -200,6 +200,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
             _unitOfWork.PacienteMedicamento.Add(pacienteMedicamento);
 
             _unitOfWork.save();
+            TempData["success"] = "Medicamento agregado al paciente correctamente";
 
             return RedirectToAction("Index");
         }
@@ -286,6 +287,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
             _unitOfWork.PacienteMedicamento.Remove(pacienteMedicamento);
 
             _unitOfWork.save();
+            TempData["success"] = "Medicamento suspendido al paciente correctamente";
 
             return RedirectToAction("Index");
         }
@@ -309,6 +311,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
             _unitOfWork.PacienteTratamiento.Remove(pacienteTratamiento);
 
             _unitOfWork.save();
+            TempData["success"] = "Tratamiento suspendido al paciente correctamente";
 
             return RedirectToAction("Index");
         }
@@ -372,6 +375,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
             _unitOfWork.PacienteTratamiento.Add(pacienteTratamiento);
 
             _unitOfWork.save();
+            TempData["success"] = "Tratamiento agregado al paciente correctamente";
 
             return RedirectToAction("Index");
         }
@@ -479,6 +483,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
             _unitOfWork.PacientePadecimiento.Add(pacientePadecimiento);
 
             _unitOfWork.save();
+            TempData["success"] = "Padecimiento agregado al paciente correctamente";
 
             return RedirectToAction("Index");
         }
@@ -544,6 +549,7 @@ namespace ClinicaSalud.Areas.Medicina.Controllers
             _unitOfWork.PacientePadecimiento.Remove(pacientePadecimiento);
 
             _unitOfWork.save();
+            TempData["success"] = "Padecimiento suspendido al paciente correctamente";
 
             return RedirectToAction("Index");
         }
